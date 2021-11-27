@@ -1,4 +1,4 @@
-name: Temenin Isoman Android Release
+name: Release
 
 on:
   push:
