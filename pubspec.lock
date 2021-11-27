@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.2"
+  bed_capacity:
+    dependency: "direct main"
+    description:
+      path: bed_capacity
+      relative: true
+    source: path
+    version: "0.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -29,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
+  checklist:
+    dependency: "direct main"
+    description:
+      path: checklist
+      relative: true
+    source: path
+    version: "0.0.1"
   clock:
     dependency: transitive
     description:
@@ -50,6 +64,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  deteksi_mandiri:
+    dependency: "direct main"
+    description:
+      path: deteksi_mandiri
+      relative: true
+    source: path
+    version: "0.0.1"
+  emergency_contact:
+    dependency: "direct main"
+    description:
+      path: emergency_contact
+      relative: true
+    source: path
+    version: "0.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -74,6 +102,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  happy_notes:
+    dependency: "direct main"
+    description:
+      path: happy_notes
+      relative: true
+    source: path
+    version: "0.0.1"
   lints:
     dependency: transitive
     description:
@@ -95,6 +130,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  obat:
+    dependency: "direct main"
+    description:
+      path: obat
+      relative: true
+    source: path
+    version: "0.0.1"
   path:
     dependency: transitive
     description:
@@ -149,6 +191,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.3"
+  tips_and_tricks:
+    dependency: "direct main"
+    description:
+      path: tips_and_tricks
+      relative: true
+    source: path
+    version: "0.0.1"
   typed_data:
     dependency: transitive
     description:
@@ -164,4 +213,5 @@ packages:
     source: hosted
     version: "2.1.0"
 sdks:
-  dart: ">=2.14.0-116.0.dev <3.0.0"
+  dart: ">=2.15.0-116.0.dev <3.0.0"
+  flutter: ">=1.17.0"

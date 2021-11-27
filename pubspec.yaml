@@ -29,11 +29,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  bed_capacity:
+    path: bed_capacity
+  checklist:
+    path: checklist
+  deteksi_mandiri:
+    path: deteksi_mandiri
+  emergency_contact:
+    path: emergency_contact
+  happy_notes:
+    path: happy_notes
+  obat:
+    path: obat
+  tips_and_tricks:
+    path: tips_and_tricks
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.4
 
 dev_dependencies:
   flutter_test:
