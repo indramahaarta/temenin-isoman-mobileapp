@@ -6,7 +6,7 @@ Isolasi mandiri shouldn't be lonely. Let's accompany those in need.
 
 
 ## 📱 APK
-You can download our apk on [temenin-isoman.herokuapp.com](https://temenin-isoman.herokuapp.com/)
+You can download our apk on [_releases_](https://github.com/sabynn/temenin-isoman-mobileapp/releases).
 
 
 ## 👨‍⚕👩‍⚕️ Brief
