@@ -1,0 +1,45 @@
+name: Temenin Isoman Android Release
+
+on:
+  push:
+    branches: [ master ]
+
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "Build and Release APK"
+  releases:
+    name: Build and Release APK
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+
+      - name: Get packages
+        run: flutter packages get
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Build APK
+        run: flutter build apk --split-per-abi
+
+      - name: Release APK
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: "build/app/outputs/flutter-apk/*.apk"
+          token: ${{ secrets.GH_TOKEN }}
+          tag: "latest"
