@@ -18,24 +18,24 @@ class LoginScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text('LOGIN',
+                const Text('LOGIN',
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 60.0,
                       color: Colors.pink,
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Username',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.person),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
@@ -53,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     TextButton(
                       onPressed: () {
-                        print('Forgotted Password!');
+                        // print('Forgotted Password!');
                       },
                       child: Text(
                         'Forgot Password?',
@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -78,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                   child: MaterialButton(
                     onPressed: () => Navigator.pushNamed(context, '/wilayah'),
                     color: Colors.pink,
-                    child: Text(
+                    child: const Text(
                       'LOGIN',
                       style: TextStyle(
                         fontSize: 20,
@@ -87,10 +87,10 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Divider(
+                const Divider(
                   color: Colors.black,
                   height: 30,
                 ),
@@ -106,9 +106,9 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        print('Sign Up');
+                        // print('Sign Up');
                       },
-                      child: Text(
+                      child: const Text(
                         'Register Now',
                         style: TextStyle(color: Colors.blue),
                       ),
