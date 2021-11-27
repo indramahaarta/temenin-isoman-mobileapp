@@ -3,6 +3,8 @@ name: Pre-Release
 
 # Controls when the workflow will run
 on:
+  push:
+    branches: [ develop ]
   # Triggers the workflow on pull request events but only for the main branch
   pull_request:
     branches: [ master ]
