@@ -12,9 +12,12 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout the code
         uses: actions/checkout@v2
+
+      - name: Get version from pubspec.yaml
+        id: version
+        run: echo "::set-output name=version::$(grep "version:" pubspec.yaml | cut -c10-)"
 
       - name: Setup Java
         uses: actions/setup-java@v2
@@ -33,6 +36,10 @@ jobs:
       - name: Analyze
         run: flutter analyze
 
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(TZ='Asia/Jakarta' date +'%A %d-%m-%Y %T WIB')"
+
       - name: Build APK
         run: flutter build apk --split-per-abi
 
@@ -41,5 +48,7 @@ jobs:
         with:
           allowUpdates: true
           artifacts: "build/app/outputs/flutter-apk/*.apk"
+          body: 'Published at ${{ steps.date.outputs.date }}'
+          name: 'v${{ steps.version.outputs.version }}'
           token: ${{ secrets.GH_TOKEN }}
-          tag: "latest"
+          tag: ${{ steps.version.outputs.version }}
