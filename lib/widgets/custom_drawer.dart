@@ -4,13 +4,7 @@ import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/main.dart';
 
-Widget customDrawer(
-    BuildContext context, AnimationController iconAnimationController) {
-  iconAnimationController.animateTo(
-    1.0,
-    duration: const Duration(milliseconds: 0),
-    curve: Curves.fastOutSlowIn,
-  );
+Widget customDrawer(BuildContext context) {
   return Drawer(
     child: ListView(
       children: <Widget>[
@@ -42,7 +36,7 @@ Widget customDrawer(
                     ),
                     child: Center(
                       child: Text(
-                        'Hello, Guest',
+                        'Temenin Isoman',
                         style: AppTheme.myTextTheme.bodyText1,
                       ),
                     ),
