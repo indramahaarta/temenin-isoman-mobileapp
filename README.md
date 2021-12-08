@@ -8,6 +8,8 @@ Isolasi mandiri shouldn't be lonely. Let's accompany those in need.
 ## 📱 APK
 You can download our apk on [_releases_](https://github.com/sabynn/temenin-isoman-mobileapp/releases).
 
+## 🔗 Integrasi dengan Web Service
+Integrasi dilakukan dengan mengimplementasikan API endpoint pada backend Django dari [web](https://github.com/MarcellinoCO/temenin-isoman) yang sudah dibuat sebelumnya dengan menggunakan JsonResponse. Selanjutnya, mengimplementasikan desain frontend mobile yang menyesuaikan desain [web](https://temenin-isoman.herokuapp.com/), serta melakukan integrasi frontend-backend dengan menggunakan konsep asynchronous HTTP.
 
 ## 👨‍⚕👩‍⚕️ Brief
 Pada saat seorang pasien pertama kali terkena COVID-19, pasti mereka akan kebingungan akan banyak hal terutama tentang apa yang harus selanjutnya mereka lakukan. Aplikasi yang hendak kami bangun, bertujuan untuk memberikan berbagai informasi tersebut.
