@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
 import 'package:tips_and_tricks/common/styles.dart';
 import 'package:tips_and_tricks/widgets/article_items.dart';
 import 'package:tips_and_tricks/dummy_data.dart';
 import 'package:tips_and_tricks/screens/add_article_page.dart';
 
 class TipsAndTricksListPage extends StatelessWidget {
-  static const routeName = '/article_list';
+  static const routeName = '/tips-and-tricks';
 
   const TipsAndTricksListPage({Key? key}) : super(key: key);
 
@@ -38,7 +38,21 @@ class TipsAndTricksListPage extends StatelessWidget {
               },
             )
           ],
+          leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.short_text,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            },
+          ),
         ),
+        drawer: customDrawer(context),
         body: Column(
           children: <Widget>[
             Padding(

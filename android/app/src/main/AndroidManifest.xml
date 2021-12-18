@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.temenin_isoman_mobileapp">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="temenin_isoman_mobileapp"
         android:icon="@mipmap/ic_launcher">

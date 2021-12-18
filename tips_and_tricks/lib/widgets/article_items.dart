@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tips_and_tricks/common/styles.dart';
 import 'package:tips_and_tricks/models/article.dart';
