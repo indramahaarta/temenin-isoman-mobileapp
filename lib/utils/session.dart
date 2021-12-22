@@ -18,6 +18,13 @@ Future<String?> getSessionId() {
   return _readSessionId();
 }
 
+Future<Map<String, String>> getSessionIdCookie() async {
+  String? sessionId = await getSessionId();
+  if (sessionId == null) return {};
+
+  return {"cookie": "sessionid=$sessionId"};
+}
+
 Future<String?> _readSessionId() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getString("sessionId");
