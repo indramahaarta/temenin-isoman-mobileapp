@@ -52,7 +52,7 @@ class TipsAndTricksListPage extends StatelessWidget {
             },
           ),
         ),
-        drawer: customDrawer(context),
+        drawer: customDrawer(context, Future.value(null)),
         body: Column(
           children: <Widget>[
             Padding(

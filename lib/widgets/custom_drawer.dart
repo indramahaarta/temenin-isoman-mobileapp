@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
+import 'package:temenin_isoman_mobileapp/models/user.dart';
+
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/main.dart';
 
-Widget customDrawer(BuildContext context) {
+Widget customDrawer(BuildContext context, Future<User?> futureUser) {
   return Drawer(
     child: ListView(
       children: <Widget>[
@@ -116,17 +119,41 @@ Widget customDrawer(BuildContext context) {
         const Divider(
           thickness: 1.0,
         ),
-        ListTile(
-          title: Text(
-            "Login",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.login),
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              LoginScreen.routeName,
-            );
+        FutureBuilder<User?>(
+          future: futureUser,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListTile(
+                title: Text(
+                  snapshot.data!.username,
+                  style: AppTheme.myTextTheme.bodyText1,
+                ),
+                leading: const Icon(Icons.person),
+              );
+            } else if (snapshot.hasError ||
+                snapshot.connectionState == ConnectionState.done) {
+              return ListTile(
+                title: Text(
+                  "Login",
+                  style: AppTheme.myTextTheme.bodyText1,
+                ),
+                leading: const Icon(Icons.login),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    LoginScreen.routeName,
+                  );
+                },
+              );
+            } else {
+              return ListTile(
+                title: Text(
+                  "Loading user...",
+                  style: AppTheme.myTextTheme.bodyText1,
+                ),
+                leading: const CircularProgressIndicator(),
+              );
+            }
           },
         ),
       ],
