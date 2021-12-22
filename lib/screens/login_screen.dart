@@ -1,18 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class LoginScreen extends StatelessWidget {
+import 'package:temenin_isoman_mobileapp/common/styles.dart';
+import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
+
+import 'package:temenin_isoman_mobileapp/utils/session.dart';
+
+class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  void fetchUser() async {
+    final response = await http
+        .post(Uri.parse("https://temenin-isoman.herokuapp.com/user/dummy"));
+
+    print(response.statusCode);
+    print(response.body);
+
+    final responseLogin = await http.post(
+        Uri.parse("https://temenin-isoman.herokuapp.com/user/login"),
+        body: {"username": "admin", "password": "bebasss123"});
+    print(responseLogin.statusCode);
+    print(responseLogin.body);
+
+    updateSessionId(responseLogin);
+
+    String? sessionId = await getSessionId();
+    final responseDummy = await http.post(
+        Uri.parse("https://temenin-isoman.herokuapp.com/user/dummy"),
+        headers: sessionId != null
+            ? {
+                "cookie": "sessionid=$sessionId",
+              }
+            : {});
+    print(responseDummy.statusCode);
+    print(responseDummy.body);
+
+    final responseLogout = await http
+        .post(Uri.parse("https://temenin-isoman.herokuapp.com/user/logout"));
+    print(responseLogout.statusCode);
+    print(responseLogout.body);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(
-            'Temenin Isoman',
-            style: TextStyle(color: Colors.blueGrey.shade800),
-          )),
+        centerTitle: true,
+        title: const Text("Temenin Isoman"),
+        backgroundColor: AppTheme.primaryColor,
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: const Icon(
+                Icons.short_text,
+                size: 30,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+      ),
+      drawer: customDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(30),
         child: Center(
@@ -51,23 +115,6 @@ class LoginScreen extends StatelessWidget {
                     suffixIcon: Icon(Icons.remove_red_eye),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        // print('Forgotted Password!');
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.4),
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 const SizedBox(
                   height: 15,
                 ),
@@ -79,7 +126,7 @@ class LoginScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: MaterialButton(
-                    onPressed: () => Navigator.pushNamed(context, '/wilayah'),
+                    onPressed: () => Navigator.pushNamed(context, '/'),
                     color: Colors.pink,
                     child: const Text(
                       'LOGIN',
@@ -101,7 +148,7 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '''Don't have an account? ''',
+                      "Don't have an account?",
                       style: TextStyle(
                         color: Colors.black.withOpacity(0.5),
                         fontSize: 16.0,

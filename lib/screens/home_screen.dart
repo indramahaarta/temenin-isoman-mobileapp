@@ -5,7 +5,7 @@ import 'package:temenin_isoman_mobileapp/widgets/member_card.dart';
 import 'package:temenin_isoman_mobileapp/widgets/module_card.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const routeName = '/home-screen';
+  static const routeName = '/';
 
   const HomeScreen({
     Key? key,

@@ -9,7 +9,6 @@ void main() {
 }
 
 class TemeninIsomanApp extends StatelessWidget {
-
   const TemeninIsomanApp({Key? key}) : super(key: key);
 
   @override
@@ -23,20 +22,21 @@ class TemeninIsomanApp extends StatelessWidget {
       ),
       home: const HomeScreen(),
       routes: {
-        // main routes
-        HomeScreen.routeName: (context) => const HomeScreen(),
+        // Main routes
+        // HomeScreen.routeName: (context) => const HomeScreen(),
         LoginScreen.routeName: (context) => const LoginScreen(),
 
         // TO DO: (add your module routes here)
 
-        // tips and tricks routes
-        TipsAndTricksListPage.routeName: (context) => const TipsAndTricksListPage(),
+        // Tips and Tricks routes
+        TipsAndTricksListPage.routeName: (context) =>
+            const TipsAndTricksListPage(),
         ArticleDetailPage.routeName: (context) => ArticleDetailPage(
-          article: ModalRoute.of(context)?.settings.arguments as Article,
-        ),
+              article: ModalRoute.of(context)?.settings.arguments as Article,
+            ),
         ArticleWebView.routeName: (context) => ArticleWebView(
-          url: ModalRoute.of(context)?.settings.arguments as String,
-        ),
+              url: ModalRoute.of(context)?.settings.arguments as String,
+            ),
       },
     );
   }
