@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:temenin_isoman_mobileapp/models/user.dart';
-import 'package:temenin_isoman_mobileapp/utils/session.dart';
+import 'package:temenin_isoman_mobileapp/utils/user.dart';
 
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
@@ -19,55 +17,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late Future<User?> futureUser;
 
-  Future<User?> fetchUser() async {
-    final response = await http
-        .post(Uri.parse("https://temenin-isoman.herokuapp.com/user/"));
-
-    if (response.statusCode == 200) {
-      return User.fromJson(jsonDecode(response.body));
-    } else {
-      return null;
-    }
-  }
-
   final _formKey = GlobalKey<FormState>();
-
-  // void fetchUser() async {
-  //   final response = await http
-  //       .post(Uri.parse("https://temenin-isoman.herokuapp.com/user/dummy"));
-
-  //   print(response.statusCode);
-  //   print(response.body);
-
-  //   final responseLogin = await http.post(
-  //       Uri.parse("https://temenin-isoman.herokuapp.com/user/login"),
-  //       body: {"username": "admin", "password": "bebasss123"});
-  //   print(responseLogin.statusCode);
-  //   print(responseLogin.body);
-
-  //   updateSessionId(responseLogin);
-
-  //   String? sessionId = await getSessionId();
-  //   final responseDummy = await http.post(
-  //       Uri.parse("https://temenin-isoman.herokuapp.com/user/dummy"),
-  //       headers: sessionId != null
-  //           ? {
-  //               "cookie": "sessionid=$sessionId",
-  //             }
-  //           : {});
-  //   print(responseDummy.statusCode);
-  //   print(responseDummy.body);
-
-  //   final responseLogout = await http
-  //       .post(Uri.parse("https://temenin-isoman.herokuapp.com/user/logout"));
-  //   print(responseLogout.statusCode);
-  //   print(responseLogout.body);
-  // }
 
   @override
   void initState() {
     super.initState();
-    // fetchUser();
     futureUser = fetchUser();
   }
 

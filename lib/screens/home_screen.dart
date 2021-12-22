@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:temenin_isoman_mobileapp/models/user.dart';
+import 'package:temenin_isoman_mobileapp/utils/user.dart';
 
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
-import 'package:temenin_isoman_mobileapp/utils/session.dart';
 import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
 import 'package:temenin_isoman_mobileapp/widgets/member_card.dart';
 import 'package:temenin_isoman_mobileapp/widgets/module_card.dart';
@@ -20,19 +18,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<User?> futureUser;
-
-  Future<User?> fetchUser() async {
-    final sessionCookie = await getSessionIdCookie();
-    final response = await http.post(
-        Uri.parse("https://temenin-isoman.herokuapp.com/user/"),
-        headers: sessionCookie);
-
-    if (response.statusCode == 200) {
-      return User.fromJson(jsonDecode(response.body)["data"]);
-    } else {
-      return null;
-    }
-  }
 
   @override
   void initState() {
