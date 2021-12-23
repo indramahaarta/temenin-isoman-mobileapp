@@ -45,8 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Login success!")));
     } else {
-      print(response.statusCode);
-      print(response.body);
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Login failed!")));
     }
@@ -165,9 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        // print('Sign Up');
-                      },
+                      onPressed: () {},
                       child: const Text(
                         'Register Now',
                         style: TextStyle(color: Colors.blue),
