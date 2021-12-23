@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:temenin_isoman_mobileapp/models/user.dart';
+import 'package:temenin_isoman_mobileapp/utils/session.dart';
+
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/main.dart';
 
-Widget customDrawer(BuildContext context) {
+Widget customDrawer(BuildContext context, Future<User?> futureUser) {
+  void logout() async {
+    final sessionCookie = await getSessionIdCookie();
+    final response = await http.post(
+        Uri.parse("https://temenin-isoman.herokuapp.com/user/logout"),
+        headers: sessionCookie);
+
+    if (response.statusCode == 200) {
+      updateSessionId(response);
+      Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Logout success!")));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Logout failed!")));
+    }
+  }
+
   return Drawer(
     child: ListView(
       children: <Widget>[
@@ -116,17 +138,53 @@ Widget customDrawer(BuildContext context) {
         const Divider(
           thickness: 1.0,
         ),
-        ListTile(
-          title: Text(
-            "Login",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.login),
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              LoginScreen.routeName,
-            );
+        FutureBuilder<User?>(
+          future: futureUser,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      snapshot.data!.username,
+                      style: AppTheme.myTextTheme.bodyText1,
+                    ),
+                    leading: const Icon(Icons.person),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Log out",
+                      style: AppTheme.myTextTheme.bodyText1,
+                    ),
+                    leading: const Icon(Icons.power_settings_new),
+                    onTap: () => logout(),
+                  ),
+                ],
+              );
+            } else if (snapshot.hasError ||
+                snapshot.connectionState == ConnectionState.done) {
+              return ListTile(
+                title: Text(
+                  "Login",
+                  style: AppTheme.myTextTheme.bodyText1,
+                ),
+                leading: const Icon(Icons.login),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    LoginScreen.routeName,
+                  );
+                },
+              );
+            } else {
+              return ListTile(
+                title: Text(
+                  "Loading user...",
+                  style: AppTheme.myTextTheme.bodyText1,
+                ),
+                leading: const CircularProgressIndicator(),
+              );
+            }
           },
         ),
       ],
