@@ -37,6 +37,7 @@ class TemeninIsomanApp extends StatelessWidget {
         ArticleWebView.routeName: (context) => ArticleWebView(
               url: ModalRoute.of(context)?.settings.arguments as String,
             ),
+        AddArticlePage.routeName: (context) => const AddArticlePage(),
       },
     );
   }

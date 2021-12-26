@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:temenin_isoman_mobileapp/models/user.dart';
 import 'package:temenin_isoman_mobileapp/utils/session.dart';
 import 'package:temenin_isoman_mobileapp/utils/user.dart';
-
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
@@ -22,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String _username = "";
   String _password = "";
+  bool _showPassword = true;
 
   void login() async {
     if (_username == "" || _password == "") {
@@ -113,13 +112,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 TextField(
-                  obscureText: true,
+                  obscureText: _showPassword,
                   keyboardType: TextInputType.visiblePassword,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Password',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: Icon(Icons.remove_red_eye),
+                    border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _showPassword ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _showPassword = !_showPassword;
+                        });
+                      },
+                    ),
                   ),
                   onChanged: (value) => setState(() => _password = value),
                 ),

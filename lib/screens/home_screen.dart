@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:temenin_isoman_mobileapp/models/user.dart';
 import 'package:temenin_isoman_mobileapp/utils/user.dart';
-
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
 import 'package:temenin_isoman_mobileapp/widgets/member_card.dart';

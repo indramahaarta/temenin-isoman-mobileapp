@@ -33,7 +33,6 @@ final TextTheme myTextTheme = TextTheme(
   headline5: GoogleFonts.oswald(
     fontSize: 23,
     fontWeight: FontWeight.w400,
-    color: Colors.white,
   ),
   headline6: GoogleFonts.oswald(
     fontSize: 19,
@@ -62,17 +61,17 @@ final TextTheme myTextTheme = TextTheme(
     fontWeight: FontWeight.w400,
     letterSpacing: 0.25,
   ),
-  button: GoogleFonts.oswald(
+  button: GoogleFonts.montserrat(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     letterSpacing: 1.25,
   ),
-  caption: GoogleFonts.oswald(
+  caption: GoogleFonts.montserrat(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.4,
   ),
-  overline: GoogleFonts.oswald(
+  overline: GoogleFonts.montserrat(
     fontSize: 10,
     fontWeight: FontWeight.w400,
     letterSpacing: 1.5,

@@ -2,7 +2,7 @@
     package="com.example.temenin_isoman_mobileapp">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="temenin_isoman_mobileapp"
+        android:label="temeninisoman"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

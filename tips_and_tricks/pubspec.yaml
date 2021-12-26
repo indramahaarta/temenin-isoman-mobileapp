@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   temenin_isoman_mobileapp:
     path: ../.
   flutter_lints: ^1.0.4
