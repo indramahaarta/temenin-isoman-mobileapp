@@ -17,3 +17,12 @@ Future<Quarantine?> fetchQuarantine() async {
     return null;
   }
 }
+
+Future<bool> startQuarantine() async {
+  final sessionCookie = await getSessionIdCookie();
+  final response = await http.post(
+      Uri.parse("http://temenin-isoman.herokuapp.com/checklist/start"),
+      headers: sessionCookie);
+
+  return response.statusCode == 200;
+}

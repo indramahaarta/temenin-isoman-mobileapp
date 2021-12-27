@@ -1,3 +1,4 @@
+import 'package:checklist/widgets/checklist_start.dart';
 import 'package:flutter/material.dart';
 
 import 'package:checklist/models/quarantine.dart';
@@ -28,7 +29,7 @@ class _ChecklistHomeState extends State<ChecklistHome> {
           return const Text("Quarantine running!");
         } else if (snapshot.connectionState == ConnectionState.done &&
             snapshot.data == null) {
-          return const Text("No quarantine!");
+          return const ChecklistStart();
         } else if (snapshot.hasError) {
           return const Text("Error!");
         }
