@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_notes/methods/add_data.dart';
 import 'package:happy_notes/models/note.dart';
@@ -22,12 +21,11 @@ class _NoteFormState extends State<NoteForm> {
   Widget build(BuildContext context) {
     return AlertDialog(
       scrollable: true,
-      title: Text(
+      title: const Text(
         'Add Note',
         textAlign: TextAlign.center,
       ),
-      content: Container(
-          child: Form(
+      content: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         key: formKey,
         child: Column(children: [
@@ -38,11 +36,11 @@ class _NoteFormState extends State<NoteForm> {
               }
               title = value!;
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Enter note title",
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           TextFormField(
@@ -52,11 +50,11 @@ class _NoteFormState extends State<NoteForm> {
               }
               sender = value!;
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Enter sender's name or alias",
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           TextFormField(
@@ -69,11 +67,11 @@ class _NoteFormState extends State<NoteForm> {
             keyboardType: TextInputType.multiline,
             minLines: 3,
             maxLines: 5,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Enter the message",
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           ElevatedButton(
@@ -90,25 +88,25 @@ class _NoteFormState extends State<NoteForm> {
                       value,
                     ))));
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return NotesPage();
+                  return const NotesPage();
                 }));
               }
             },
-            child: Text(
+            child: const Text(
               "Submit",
               style: TextStyle(fontSize: 16),
             ),
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.pink),
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.all(15)),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
-                        side: BorderSide(color: Colors.red)))),
+                        side: const BorderSide(color: Colors.red)))),
           ),
         ]),
-      )),
+      ),
     );
   }
 }

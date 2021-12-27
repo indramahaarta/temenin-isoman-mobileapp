@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:temenin_isoman_mobileapp/models/user.dart';
 import 'package:temenin_isoman_mobileapp/utils/user.dart';
@@ -40,7 +39,7 @@ class _NotesPageState extends State<NotesPage> {
         bottom: false,
         top: false,
         child: Container(
-          padding: new EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 92,
             left: 16,
             right: 16,
@@ -50,15 +49,15 @@ class _NotesPageState extends State<NotesPage> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Center(
               child: Container(
-                padding: new EdgeInsets.only(left: 32, right: 32),
-                child: Text(
+                padding: const EdgeInsets.only(left: 32, right: 32),
+                child: const Text(
                   "Send your HappyNotes to cheering up those in Isolasi Mandiri! 💗",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
             IconButton(
@@ -68,7 +67,7 @@ class _NotesPageState extends State<NotesPage> {
               ),
               onPressed: () => _scaffoldKey.currentState!.openDrawer(),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             // cards view
@@ -84,10 +83,11 @@ class _NotesPageState extends State<NotesPage> {
                           child: StaggeredGridView.count(
                             crossAxisCount: 4,
                             children: List.generate(notes!.length, (index) {
-                              return NoteCard(context, notes[index]);
+                              return noteCard(context, notes[index]);
                             }),
                             staggeredTiles: notes
-                                .map<StaggeredTile>((_) => StaggeredTile.fit(2))
+                                .map<StaggeredTile>(
+                                    (_) => const StaggeredTile.fit(2))
                                 .toList(),
                             mainAxisSpacing: 3.0,
                             crossAxisSpacing: 4.0,
@@ -110,7 +110,7 @@ class _NotesPageState extends State<NotesPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(
+        child: const Icon(
           Icons.add,
         ),
         onPressed: () => {
@@ -121,18 +121,17 @@ class _NotesPageState extends State<NotesPage> {
                   future: futureUser,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return NoteForm();
+                      return const NoteForm();
                     }
-                    return AlertDialog(
+                    return const AlertDialog(
                       scrollable: true,
                       title: Text(
                         'Add Note',
                         textAlign: TextAlign.center,
                       ),
-                      content: Container(
-                        child: Text(
-                          "Please login to add note ^^",
-                        ),
+                      content: Text(
+                        "Please login to add note ^^",
+                        textAlign: TextAlign.center,
                       ),
                     );
                   },
