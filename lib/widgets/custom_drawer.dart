@@ -1,10 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:happy_notes/happy_notes.dart';
+import 'package:http/http.dart' as http;
+import 'package:temenin_isoman_mobileapp/models/user.dart';
+import 'package:temenin_isoman_mobileapp/utils/session.dart';
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/main.dart';
 
-Widget customDrawer(BuildContext context) {
+Widget customDrawer(BuildContext context, Future<User?> futureUser) {
+  void logout() async {
+    final sessionCookie = await getSessionIdCookie();
+    final response = await http.post(
+        Uri.parse("https://temenin-isoman.herokuapp.com/user/logout"),
+        headers: sessionCookie);
+
+    if (response.statusCode == 200) {
+      updateSessionId(response);
+      Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Logout success!")));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Logout failed!")));
+    }
+  }
+
   return Drawer(
     child: ListView(
       children: <Widget>[
@@ -30,10 +51,13 @@ Widget customDrawer(BuildContext context) {
                       ),
                     ),
                   ),
-                  Center(
-                    child: Text(
-                      'Temenin Isoman',
-                      style: AppTheme.myTextTheme.headline5,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        'Temenin Isoman',
+                        style: AppTheme.myTextTheme.headline5,
+                      ),
                     ),
                   ),
                 ],
@@ -41,95 +65,152 @@ Widget customDrawer(BuildContext context) {
             ),
           ),
         ),
-        const SizedBox(
-          height: 30,
+        Container(
+          height: 20,
         ),
-        ListTile(
-          title: Text(
-            "Home Page",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.home),
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              HomeScreen.routeName,
-            );
-          },
+        _drawerTile(
+          context,
+          "Home Page",
+          Icons.home,
+          HomeScreen.routeName,
         ),
-        ListTile(
-          title: Text(
-            "Bed Capacity",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.bed),
-          onTap: () {},
+        _drawerTile(
+          context,
+          "Bed Capacity",
+          Icons.bed,
+          HomeScreen.routeName,
         ),
-        ListTile(
-          title: Text(
-            "Checklist",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.checklist),
-          onTap: () {},
+        _drawerTile(
+          context,
+          "Checklist",
+          Icons.checklist,
+          HomeScreen.routeName,
         ),
-        ListTile(
-          title: Text(
-            "Deteksi Mandiri",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.sick_outlined),
-          onTap: () {},
+        _drawerTile(
+          context,
+          "Deteksi Mandiri",
+          Icons.sick_outlined,
+          HomeScreen.routeName,
         ),
-        ListTile(
-          title: Text(
-            "Emergency Contact",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.warning),
-          onTap: () {},
+        _drawerTile(
+          context,
+          "Emergency Contact",
+          Icons.warning,
+          HomeScreen.routeName,
         ),
-        ListTile(
-          title: Text(
-            "Happy Notes",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.note_rounded),
-          onTap: () {},
+        _drawerTile(
+          context,
+          "Happy Notes",
+          Icons.note_rounded,
+          NotesPage.routeName,
         ),
-        ListTile(
-          title: Text(
-            "Tips And Tricks",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.lightbulb_outline),
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              TipsAndTricksListPage.routeName,
-            );
-          },
+        _drawerTile(
+          context,
+          "Tips And Tricks",
+          Icons.lightbulb_outline,
+          TipsAndTricksListPage.routeName,
         ),
-        const SizedBox(
-          height: 30,
+        Container(
+          height: 20,
         ),
-        const Divider(
-          thickness: 1.0,
-        ),
-        ListTile(
-          title: Text(
-            "Login",
-            style: AppTheme.myTextTheme.bodyText1,
-          ),
-          leading: const Icon(Icons.login),
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              LoginScreen.routeName,
-            );
+        FutureBuilder<User?>(
+          future: futureUser,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Column(
+                children: [
+                  const Divider(
+                    thickness: 1.5,
+                    color: AppTheme.primaryColor,
+                  ),
+                  ListTile(
+                    title: Text(
+                      snapshot.data!.username,
+                      style: AppTheme.myTextTheme.bodyText1,
+                    ),
+                    leading: const Icon(
+                      Icons.person,
+                      color: AppTheme.primaryColor,
+                    ),
+                  ),
+                  Container(
+                    color: AppTheme.primaryColor,
+                    child: ListTile(
+                      title: Text(
+                        "Log out",
+                        style: AppTheme.myTextTheme.bodyText1?.apply(
+                          color: Colors.white,
+                        ),
+                      ),
+                      leading: const Icon(
+                        Icons.power_settings_new,
+                        color: Colors.white,
+                      ),
+                      onTap: () => logout(),
+                    ),
+                  ),
+                ],
+              );
+            } else if (snapshot.hasError ||
+                snapshot.connectionState == ConnectionState.done) {
+              return Container(
+                color: AppTheme.primaryColor,
+                child: ListTile(
+                  title: Text(
+                    "Login",
+                    style: AppTheme.myTextTheme.bodyText1?.apply(
+                      color: Colors.white,
+                    ),
+                  ),
+                  leading: const Icon(
+                    Icons.login,
+                    color: Colors.white,
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      LoginScreen.routeName,
+                    );
+                  },
+                ),
+              );
+            } else {
+              return ListTile(
+                title: Text(
+                  "Loading user...",
+                  style: AppTheme.myTextTheme.bodyText1,
+                ),
+                leading: const CircularProgressIndicator(
+                  color: AppTheme.primaryColor,
+                ),
+              );
+            }
           },
         ),
       ],
     ),
+  );
+}
+
+Widget _drawerTile(
+  BuildContext context,
+  String text,
+  IconData icon,
+  String route,
+) {
+  return ListTile(
+    title: Text(
+      text,
+    ),
+    leading: Icon(
+      icon,
+      color: AppTheme.primaryColor,
+    ),
+    onTap: () {
+      Navigator.pushNamed(
+        context,
+        route,
+      );
+    },
   );
 }
