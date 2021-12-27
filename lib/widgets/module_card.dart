@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
+
+import 'package:checklist/main.dart';
 import 'package:tips_and_tricks/main.dart';
 
 Widget category(BuildContext context) {
@@ -50,7 +52,7 @@ Widget category(BuildContext context) {
               Icons.checklist,
               const Color(0xfffa8c73),
               const Color(0xfffa9881),
-              HomeScreen.routeName,
+              ChecklistScreen.routeName,
               context,
             ),
             _categoryCard(

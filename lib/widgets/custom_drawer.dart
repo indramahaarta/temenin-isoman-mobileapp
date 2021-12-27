@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:temenin_isoman_mobileapp/models/user.dart';
 import 'package:temenin_isoman_mobileapp/utils/session.dart';
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
+
+import 'package:checklist/main.dart';
 import 'package:tips_and_tricks/main.dart';
 
 Widget customDrawer(BuildContext context, Future<User?> futureUser) {
@@ -83,7 +86,7 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
           context,
           "Checklist",
           Icons.checklist,
-          HomeScreen.routeName,
+          ChecklistScreen.routeName,
         ),
         _drawerTile(
           context,
