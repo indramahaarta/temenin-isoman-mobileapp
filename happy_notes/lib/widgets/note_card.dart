@@ -22,7 +22,7 @@ Widget NoteCard(BuildContext context, Note noteData) {
             ),
           ),
           SizedBox(
-            height: 16,
+            height: 20,
           ),
           Text(
             noteData.message,
@@ -31,7 +31,7 @@ Widget NoteCard(BuildContext context, Note noteData) {
             ),
           ),
           SizedBox(
-            height: 12,
+            height: 16,
           ),
           Container(
             alignment: Alignment.bottomRight,

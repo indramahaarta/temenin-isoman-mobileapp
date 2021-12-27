@@ -23,6 +23,7 @@ class _NotesPageState extends State<NotesPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   late Future<User?> futureUser;
+  Color color = Colors.white;
 
   @override
   void initState() {
