@@ -1,3 +1,4 @@
+import 'package:checklist/widgets/checklist_home.dart';
 import 'package:flutter/material.dart';
 
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
@@ -48,8 +49,11 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
         future: futureUser,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Text("Logged in as ${(snapshot.data as User).username}");
-          } else if (snapshot.hasError || snapshot.data == null) {
+            return const ChecklistHome();
+            // return Text("Logged in as ${(snapshot.data as User).username}");
+          } else if (snapshot.hasError ||
+              (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.data == null)) {
             return const Text("Not yet logged in!");
           }
 
