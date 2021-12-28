@@ -40,7 +40,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (response.statusCode == 200) {
       updateSessionId(response);
-      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        HomeScreen.routeName,
+        (Route _) => false,
+      );
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Login success!")));
     } else {
@@ -56,7 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
     futureUser = fetchUser();
     futureUser.then((user) {
       if (user != null) {
-        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          HomeScreen.routeName,
+          (Route _) => false,
+        );
       }
     });
   }
