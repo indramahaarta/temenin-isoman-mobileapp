@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_notes/happy_notes.dart';
 import 'package:http/http.dart' as http;
 import 'package:temenin_isoman_mobileapp/models/user.dart';
 import 'package:temenin_isoman_mobileapp/utils/session.dart';
@@ -101,7 +102,7 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
           context,
           "Happy Notes",
           Icons.note_rounded,
-          HomeScreen.routeName,
+          NotesPage.routeName,
         ),
         _drawerTile(
           context,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_notes/happy_notes.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/common/styles.dart';
@@ -38,6 +39,9 @@ class TemeninIsomanApp extends StatelessWidget {
               url: ModalRoute.of(context)?.settings.arguments as String,
             ),
         AddArticlePage.routeName: (context) => const AddArticlePage(),
+
+        // Happy Notes routes
+        NotesPage.routeName: (context) => const NotesPage(),
       },
     );
   }
