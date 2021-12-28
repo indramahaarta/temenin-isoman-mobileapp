@@ -1,7 +1,15 @@
 library deteksi_mandiri;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+import 'package:flutter/material.dart';
+import 'package:deteksi_mandiri/screens/main_page.dart';
+
+class DeteksiMandiri extends StatelessWidget {
+  static const routeName = '/deteksi-mandiri';
+
+  const DeteksiMandiri({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MainPage();
+  }
 }
