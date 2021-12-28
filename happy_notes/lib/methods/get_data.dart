@@ -16,14 +16,7 @@ Future<List<Note>> fetchNote() async {
     },
   );
 
-  // debug
-  // if (response.statusCode == 200) {
-  //   print('nice');
-  // } else {
-  //   print('A network error occurred');
-  // }
-
-  // decode dari json ke map
+  // decode dari json ke struktur data map
   var data = jsonDecode(utf8.decode(response.bodyBytes));
   List<Note> notesData = [];
   // add data to notes
