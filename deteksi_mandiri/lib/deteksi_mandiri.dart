@@ -10,6 +10,6 @@ class DeteksiMandiri extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainPage();
+    return const MainPage();
   }
 }
