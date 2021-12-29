@@ -3,6 +3,7 @@ import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/main.dart';
+import 'package:bed_capacity/main.dart';
 
 Widget customDrawer(BuildContext context) {
   return Drawer(
@@ -63,7 +64,12 @@ Widget customDrawer(BuildContext context) {
             style: AppTheme.myTextTheme.bodyText1,
           ),
           leading: const Icon(Icons.bed),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              AreaList.routeName,
+            );
+          },
         ),
         ListTile(
           title: Text(

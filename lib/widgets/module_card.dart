@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:tips_and_tricks/main.dart';
+import 'package:bed_capacity/main.dart';
 
 Widget category(BuildContext context) {
   return Column(
@@ -42,7 +43,7 @@ Widget category(BuildContext context) {
               Icons.bed,
               const Color(0xfffa8c73),
               const Color(0xfffa9881),
-              HomeScreen.routeName,
+              AreaList.routeName,
               context,
             ),
             _categoryCard(

@@ -3,6 +3,7 @@ import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/common/styles.dart';
 import 'package:tips_and_tricks/main.dart';
+import 'package:bed_capacity/main.dart';
 
 void main() {
   runApp(const TemeninIsomanApp());
@@ -36,6 +37,15 @@ class TemeninIsomanApp extends StatelessWidget {
         ),
         ArticleWebView.routeName: (context) => ArticleWebView(
           url: ModalRoute.of(context)?.settings.arguments as String,
+        ),
+
+        // bed capacity routes
+        AreaList.routeName: (context) => const AreaList(),
+        HospitalList.routeName: (context) => HospitalList(
+          area: ModalRoute.of(context)?.settings.arguments as Area,
+        ),
+        BedRequestForm.routeName: (context) => BedRequestForm(
+          hospital: ModalRoute.of(context)?.settings.arguments as Hospital,
         ),
       },
     );
