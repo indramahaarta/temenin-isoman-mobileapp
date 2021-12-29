@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 import 'package:deteksi_mandiri/screens/result_page.dart';
 import 'package:flutter/material.dart';
@@ -5,18 +7,19 @@ import 'package:temenin_isoman_mobileapp/models/user.dart';
 import 'package:temenin_isoman_mobileapp/utils/user.dart';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class AssessmentPage extends StatefulWidget {
   String name = "";
   int pk = 1;
 
-  AssessmentPage(this.name, this.pk);
+  AssessmentPage(this.name, this.pk, {Key? key}) : super(key: key);
 
   @override
   _AssessmentPageState createState() => _AssessmentPageState();
 }
 
 class _AssessmentPageState extends State<AssessmentPage> {
-  var _user_answer = [];
+  var user_answer = [];
 
   late Future<User?> futureUser;
 
@@ -39,12 +42,12 @@ class _AssessmentPageState extends State<AssessmentPage> {
     return data;
   }
 
-  Future<List<dynamic>> fetchOption(int pk, int pk_que) async {
+  Future<List<dynamic>> fetchOption(int pk, int pkQue) async {
     var url = Uri.parse(
         'https://temenin-isoman.herokuapp.com/deteksimandiri/get-assessments/' +
             pk.toString() +
             '/' +
-            pk_que.toString());
+            pkQue.toString());
 
     final response = await http.get(url);
 
@@ -61,7 +64,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
         Expanded(
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 15,
             ),
           ),
@@ -74,7 +77,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 32),
+        const SizedBox(height: 32),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -88,7 +91,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
             ),
           ],
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
       ],
     );
   }
@@ -102,24 +105,24 @@ class _AssessmentPageState extends State<AssessmentPage> {
             var data = snapshot.data ?? [];
 
             return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: data.length,
                 itemBuilder: (context, index) {
-                  if (_user_answer.length != data.length) _user_answer.add("");
+                  if (user_answer.length != data.length) user_answer.add("");
 
                   return Padding(
-                    padding: EdgeInsets.fromLTRB(32, 15, 32, 0),
+                    padding: const EdgeInsets.fromLTRB(32, 15, 32, 0),
                     child: Column(children: [
                       _buildCustomText(data[index]["question"]),
                       _buildOption(pk, data[index]["pk"], index),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 1,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                     ]),
@@ -161,21 +164,21 @@ class _AssessmentPageState extends State<AssessmentPage> {
         });
   }
 
-  FutureBuilder _buildOption(int pk, int pk_question, int no) {
+  FutureBuilder _buildOption(int pk, int pkQuestion, int no) {
     return FutureBuilder(
-        future: fetchOption(pk, pk_question),
+        future: fetchOption(pk, pkQuestion),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           List<Widget> children;
           if (snapshot.hasData) {
             var data = snapshot.data ?? [];
 
             return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -222,11 +225,11 @@ class _AssessmentPageState extends State<AssessmentPage> {
   Widget Option(int index, String data) {
     return RadioListTile<String>(
       value: data,
-      groupValue: _user_answer[index],
-      visualDensity: VisualDensity(vertical: -4, horizontal: -4),
+      groupValue: user_answer[index],
+      visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
       onChanged: (value) {
         setState(() {
-          _user_answer[index] = (value == null) ? "" : value;
+          user_answer[index] = (value == null) ? "" : value;
         });
       },
       title: _buildCustomText(data),
@@ -248,7 +251,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
                 'Content-Type': 'application/json;charset=UTF-8',
               },
               body: jsonEncode(<String, List>{
-                "answers": _user_answer,
+                "answers": user_answer,
                 "user": [res?.username]
               }));
 
@@ -261,7 +264,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
           showAlertDialog(context);
         }
       },
-      child: Text("Submit"),
+      child: const Text("Submit"),
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Colors.pink),
       ),
@@ -269,7 +272,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
   }
 
   validateData() {
-    for (String data in _user_answer) {
+    for (String data in user_answer) {
       if (data == "") {
         return false;
       }
@@ -280,7 +283,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
   showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = TextButton(
-      child: Text("OK"),
+      child: const Text("OK"),
       onPressed: () {
         Navigator.of(context).pop();
       },
@@ -288,8 +291,8 @@ class _AssessmentPageState extends State<AssessmentPage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("WARNING"),
-      content: Text("Answer all the questions!!"),
+      title: const Text("WARNING"),
+      content: const Text("Answer all the questions!!"),
       actions: [
         okButton,
       ],
@@ -318,7 +321,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Deteksi Mandiri',
+          title: const Text('Deteksi Mandiri',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.normal,
@@ -328,7 +331,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
           backgroundColor: Colors.pink,
         ),
         body: SingleChildScrollView(
-          physics: ScrollPhysics(),
+          physics: const ScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
@@ -336,7 +339,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
               _buildHeader(widget.name),
               _buildQuestion(widget.pk, widget.name),
               _buildSubmit(widget.pk),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
             ],
