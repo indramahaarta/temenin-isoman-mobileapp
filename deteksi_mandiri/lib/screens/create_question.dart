@@ -2,21 +2,27 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class CreateQuestion extends StatefulWidget {
   String name = "";
   String topic = "";
+  // ignore: non_constant_identifier_names
   int number_of_question = 0;
+  // ignore: non_constant_identifier_names
   int required_score_to_pass = 0;
   int pk = 0;
 
   CreateQuestion(this.name, this.topic, this.number_of_question,
-      this.required_score_to_pass, this.pk);
+      this.required_score_to_pass, this.pk,
+      {Key? key})
+      : super(key: key);
 
   @override
   _CreateQuestionState createState() => _CreateQuestionState();
 }
 
 class _CreateQuestionState extends State<CreateQuestion> {
+  // ignore: non_constant_identifier_names
   List user_question = [];
 
   final GlobalKey<FormState> _createQuestionForm = GlobalKey<FormState>();
@@ -43,7 +49,7 @@ class _CreateQuestionState extends State<CreateQuestion> {
             color: getColorFromHex("#344767"),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 32,
         )
       ],
@@ -56,8 +62,8 @@ class _CreateQuestionState extends State<CreateQuestion> {
         TextFormField(
           decoration: InputDecoration(
             labelText: "Question " + index.toString(),
-            labelStyle: TextStyle(color: Colors.pink),
-            focusedBorder: UnderlineInputBorder(
+            labelStyle: const TextStyle(color: Colors.pink),
+            focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.pink,
                 width: 1.4,
@@ -74,7 +80,7 @@ class _CreateQuestionState extends State<CreateQuestion> {
             user_question[index - 1] = value;
           },
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         )
       ],
@@ -90,7 +96,7 @@ class _CreateQuestionState extends State<CreateQuestion> {
 
   Widget _buildButton() {
     return Column(children: [
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
       Row(
@@ -101,7 +107,7 @@ class _CreateQuestionState extends State<CreateQuestion> {
               if (_createQuestionForm.currentState!.validate()) {
                 _createQuestionForm.currentState?.save();
 
-                final response = await http.post(
+                await http.post(
                     Uri.parse(
                         'https://temenin-isoman.herokuapp.com/deteksimandiri/create-assessment/' +
                             widget.pk.toString() +
@@ -120,7 +126,7 @@ class _CreateQuestionState extends State<CreateQuestion> {
                 return;
               }
             },
-            child: Text('Submit'),
+            child: const Text('Submit'),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.pink),
             ),
@@ -138,11 +144,11 @@ class _CreateQuestionState extends State<CreateQuestion> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Deteksi Mandiri"),
+        title: const Text("Deteksi Mandiri"),
         backgroundColor: Colors.pink,
       ),
       body: Padding(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Form(
               key: _createQuestionForm,
               child: ListView(
@@ -155,5 +161,3 @@ class _CreateQuestionState extends State<CreateQuestion> {
     );
   }
 }
-
-class _return {}
