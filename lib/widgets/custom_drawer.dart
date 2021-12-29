@@ -1,3 +1,4 @@
+import 'package:deteksi_mandiri/deteksi_mandiri.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_notes/happy_notes.dart';
 import 'package:http/http.dart' as http;
@@ -90,7 +91,7 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
           context,
           "Deteksi Mandiri",
           Icons.sick_outlined,
-          HomeScreen.routeName,
+          DeteksiMandiri.routeName,
         ),
         _drawerTile(
           context,
