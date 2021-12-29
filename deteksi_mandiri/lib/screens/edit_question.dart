@@ -2,22 +2,28 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class EditQuestion extends StatefulWidget {
   String name = "";
   String topic = "";
+  // ignore: non_constant_identifier_names
   int number_of_question = 0;
+  // ignore: non_constant_identifier_names
   int required_score_to_pass = 0;
   int pk = 0;
   List d = [];
 
   EditQuestion(this.name, this.topic, this.number_of_question,
-      this.required_score_to_pass, this.pk, this.d);
+      this.required_score_to_pass, this.pk, this.d,
+      {Key? key})
+      : super(key: key);
 
   @override
   _EditQuestionState createState() => _EditQuestionState();
 }
 
 class _EditQuestionState extends State<EditQuestion> {
+  // ignore: non_constant_identifier_names
   List user_question = [];
 
   final GlobalKey<FormState> _editQuestionForm = GlobalKey<FormState>();
@@ -44,7 +50,7 @@ class _EditQuestionState extends State<EditQuestion> {
             color: getColorFromHex("#344767"),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 32,
         )
       ],
@@ -58,8 +64,8 @@ class _EditQuestionState extends State<EditQuestion> {
           initialValue: user_question[index - 1]["question"],
           decoration: InputDecoration(
             labelText: "Question " + index.toString(),
-            labelStyle: TextStyle(color: Colors.pink),
-            focusedBorder: UnderlineInputBorder(
+            labelStyle: const TextStyle(color: Colors.pink),
+            focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.pink,
                 width: 1.4,
@@ -76,7 +82,7 @@ class _EditQuestionState extends State<EditQuestion> {
           },
           cursorColor: Colors.pink,
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         )
       ],
@@ -92,7 +98,7 @@ class _EditQuestionState extends State<EditQuestion> {
 
   Widget _buildButton() {
     return Column(children: [
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
       Row(
@@ -103,7 +109,7 @@ class _EditQuestionState extends State<EditQuestion> {
               if (_editQuestionForm.currentState!.validate()) {
                 _editQuestionForm.currentState?.save();
 
-                final response = await http.post(
+                await http.post(
                     Uri.parse(
                         'https://temenin-isoman.herokuapp.com/deteksimandiri/edit-assessment/' +
                             widget.pk.toString() +
@@ -121,7 +127,7 @@ class _EditQuestionState extends State<EditQuestion> {
                 return;
               }
             },
-            child: Text('Submit'),
+            child: const Text('Submit'),
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.pink)),
           ),
@@ -138,11 +144,11 @@ class _EditQuestionState extends State<EditQuestion> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Deteksi Mandiri"),
+        title: const Text("Deteksi Mandiri"),
         backgroundColor: Colors.pink,
       ),
       body: Padding(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Form(
               key: _editQuestionForm,
               child: ListView(
