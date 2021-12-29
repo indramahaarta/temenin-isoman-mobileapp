@@ -5,9 +5,12 @@ import 'dart:convert';
 import 'package:bed_capacity/common/styles.dart';
 import 'package:bed_capacity/screens/hospital_list.dart';
 import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
+import 'package:temenin_isoman_mobileapp/utils/user.dart';
+import 'package:temenin_isoman_mobileapp/models/user.dart';
 
 class AreaList extends StatefulWidget {
   static const routeName = '/area_list';
+
 
   static const areaButtonColor = Color(0xFFEEEEEE);
   static const areaButtonActiveColor = Color(0xFFFFF4D4);
@@ -20,6 +23,7 @@ class AreaList extends StatefulWidget {
 
 class _AreaListState extends State<AreaList> {
   late Future<List<Area>> _areas;
+  late Future<User?> futureUser;
   List<Widget> _areaListWidget = [];
   String debugger = 'test';
   Map<int, Area> areaObjects = Map<int, Area>();
@@ -56,7 +60,7 @@ class _AreaListState extends State<AreaList> {
             title: Center(
               child: Text("Bed Request", style: myTextTheme.overline),
             )),
-        drawer: customDrawer(context),
+        drawer: customDrawer(context, futureUser),
         body: ListView(
           children: <Widget>[
             Container(
@@ -167,6 +171,7 @@ class _AreaListState extends State<AreaList> {
   void initState() {
     super.initState();
     _areas = _fetchWilayah();
+    futureUser = fetchUser();
   }
 
   // Widget Builder

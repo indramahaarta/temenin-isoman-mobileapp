@@ -57,7 +57,6 @@ class _HospitalListState extends State<HospitalList> {
               child: Text("Bed Request", style: myTextTheme.overline),
             )
         ),
-        drawer: customDrawer(context),
         body: ListView(
           children: <Widget> [
             Container(

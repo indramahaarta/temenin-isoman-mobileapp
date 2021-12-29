@@ -34,7 +34,6 @@ class _BedRequestFormState extends State<BedRequestForm> {
             title: Center(
               child: Text("Bed Request", style: myTextTheme.overline),
             )),
-        drawer: customDrawer(context),
         body: ListView(
           children: <Widget>[
             Container(
@@ -72,6 +71,7 @@ class _BedRequestFormState extends State<BedRequestForm> {
                     ),
                     Container(
                       child: Form(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         key: formKey,
                         child: buildForm(),
                       ),

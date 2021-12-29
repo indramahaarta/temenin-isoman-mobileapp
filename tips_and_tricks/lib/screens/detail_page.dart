@@ -18,12 +18,24 @@ class ArticleDetailPage extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Hero(
-              tag: article.imageUrl,
+              tag: article.title,
               child: Image.network(
                 article.imageUrl,
-                // width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * .45,
-                fit: BoxFit.fill,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * .43,
+                fit: BoxFit.cover,
+                errorBuilder: (
+                  BuildContext context,
+                  Object exception,
+                  StackTrace? stackTrace,
+                ) {
+                  return Image.network(
+                    "https://images.unsplash.com/photo-1607077644571-11791eec3c34?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * .43,
+                  );
+                },
               ),
             ),
             DraggableScrollableSheet(
@@ -37,7 +49,7 @@ class ArticleDetailPage extends StatelessWidget {
                     left: 19,
                     right: 19,
                     top: 16,
-                  ), //symmetric(horizontal: 19, vertical: 16),
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
@@ -52,7 +64,7 @@ class ArticleDetailPage extends StatelessWidget {
                         offset: const Offset(
                           0,
                           2,
-                        ), // changes position of shadow
+                        ),
                       ),
                     ],
                   ),
@@ -70,13 +82,41 @@ class ArticleDetailPage extends StatelessWidget {
                           ),
                         ),
                         const Divider(color: Colors.grey),
-                        Text('Published Date: ${article.publishedDate}'),
-                        const SizedBox(height: 10),
-                        Text('Author: ${article.source}'),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.person,
+                              color: darkSecondaryColor,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Author: ${article.source}',
+                                style: myTextTheme.caption,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.calendar_today_rounded,
+                              color: darkSecondaryColor,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Published Date: ${article.publishedDate}',
+                                style: myTextTheme.caption,
+                              ),
+                            ),
+                          ],
+                        ),
                         const Divider(color: Colors.grey),
                         Text(
                           article.briefDescription,
                           style: const TextStyle(fontSize: 16),
+                          textAlign: TextAlign.justify,
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(
@@ -104,7 +144,22 @@ class ArticleDetailPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                BackButton(color: Theme.of(context).primaryColor),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(
+                        100,
+                      ),
+                    ),
+                    child: Container(
+                      color: darkSecondaryColor,
+                      child: const BackButton(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
