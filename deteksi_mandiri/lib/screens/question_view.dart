@@ -4,10 +4,11 @@ import 'package:deteksi_mandiri/screens/edit_option.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class QuestionView extends StatefulWidget {
   int pk = 0;
 
-  QuestionView(this.pk);
+  QuestionView(this.pk, {Key? key}) : super(key: key);
 
   @override
   _QuestionViewState createState() => _QuestionViewState();
@@ -38,7 +39,7 @@ class _QuestionViewState extends State<QuestionView> {
   Widget _buildHeader() {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 32,
         ),
         Text(
@@ -49,7 +50,7 @@ class _QuestionViewState extends State<QuestionView> {
             color: getColorFromHex("#344767"),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],
@@ -58,7 +59,7 @@ class _QuestionViewState extends State<QuestionView> {
 
   showAlertDialog(BuildContext context, String data, int pk) {
     Widget cancelButton = TextButton(
-      child: Text(
+      child: const Text(
         "No",
         style: TextStyle(color: Colors.pink),
       ),
@@ -68,12 +69,12 @@ class _QuestionViewState extends State<QuestionView> {
     );
 
     Widget continueButton = TextButton(
-      child: Text(
+      child: const Text(
         "Yes",
         style: TextStyle(color: Colors.pink),
       ),
       onPressed: () async {
-        final response = await http.post(
+        await http.post(
             Uri.parse(
                 'https://temenin-isoman.herokuapp.com/deteksimandiri/delete-question/' +
                     pk.toString()),
@@ -91,7 +92,7 @@ class _QuestionViewState extends State<QuestionView> {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text("WARNING"),
+      title: const Text("WARNING"),
       content: Text("Are you sure want to delete " + data),
       actions: [
         cancelButton,
@@ -115,12 +116,12 @@ class _QuestionViewState extends State<QuestionView> {
           if (snapshot.hasData) {
             var data = snapshot.data ?? [];
             return ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: data.length,
               itemBuilder: (context, index) {
                 return Padding(
-                    padding: EdgeInsets.fromLTRB(32, 15, 32, 0),
+                    padding: const EdgeInsets.fromLTRB(32, 15, 32, 0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -133,7 +134,7 @@ class _QuestionViewState extends State<QuestionView> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -155,11 +156,11 @@ class _QuestionViewState extends State<QuestionView> {
                                             widget.pk, data[index]["pk"], d)),
                                   );
                                 },
-                                style: ButtonStyle(
+                                style: const ButtonStyle(
                                   visualDensity: VisualDensity(
                                       vertical: -3, horizontal: -4),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   'Edit',
                                   style: TextStyle(
                                     color: Colors.green,
@@ -168,7 +169,7 @@ class _QuestionViewState extends State<QuestionView> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10.0,
                               ),
                               OutlinedButton(
@@ -178,11 +179,11 @@ class _QuestionViewState extends State<QuestionView> {
                                       data[index]['question'],
                                       data[index]["pk"]);
                                 },
-                                style: ButtonStyle(
+                                style: const ButtonStyle(
                                   visualDensity: VisualDensity(
                                       vertical: -3, horizontal: -4),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   'Delete',
                                   style: TextStyle(
                                     color: Colors.red,
@@ -238,7 +239,7 @@ class _QuestionViewState extends State<QuestionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Deteksi Mandiri',
+        title: const Text('Deteksi Mandiri',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.normal,
@@ -248,12 +249,12 @@ class _QuestionViewState extends State<QuestionView> {
         backgroundColor: Colors.pink,
       ),
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: Column(
           children: [
             _buildHeader(),
             _buildContent(),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
           ],
         ),
       ),
