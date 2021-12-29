@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ResultPage extends StatelessWidget {
   var data = [];
 
-  ResultPage(this.data);
+  ResultPage(this.data, {Key? key}) : super(key: key);
 
   Widget _buildSummary(result) {
     return ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: result.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -26,7 +27,7 @@ class ResultPage extends StatelessWidget {
                     style: TextStyle(color: Colors.grey.shade200),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
               ],
@@ -69,10 +70,11 @@ class ResultPage extends StatelessWidget {
     }
   }
 
+  // ignore: non_constant_identifier_names
   Widget CustomText(String title) {
     return Text(
       title,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 15,
       ),
     );
@@ -82,7 +84,7 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Deteksi Mandiri',
+        title: const Text('Deteksi Mandiri',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.normal,
@@ -93,7 +95,7 @@ class ResultPage extends StatelessWidget {
         backgroundColor: Colors.pink,
       ),
       body: Padding(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: ListView(children: <Widget>[
             Center(
                 child: Text(
@@ -103,12 +105,12 @@ class ResultPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: getColorFromHex("#344767")),
             )),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             DataTable(
               horizontalMargin: 0,
-              columns: [
+              columns: const [
                 DataColumn(
                     label: Text('Test',
                         style: TextStyle(
@@ -120,59 +122,57 @@ class ResultPage extends StatelessWidget {
               ],
               rows: [
                 DataRow(cells: [
-                  DataCell(Text('Assessment')),
+                  const DataCell(Text('Assessment')),
                   DataCell(Text(data[0]["assessment"])),
                 ]),
                 DataRow(cells: [
-                  DataCell(Text('Score to Pass')),
+                  const DataCell(Text('Score to Pass')),
                   DataCell(Text((data[0]["score_to_pass"]).toString())),
                 ]),
                 DataRow(cells: [
-                  DataCell(Text('Your Score')),
+                  const DataCell(Text('Your Score')),
                   DataCell(Text((data[0]["score"]).toString())),
                 ]),
                 DataRow(cells: [
-                  DataCell(Text('Diagnosed')),
+                  const DataCell(Text('Diagnosed')),
                   DataCell(Text(diagnosed((data[0]["lulus"]).toString()))),
                 ]),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 13,
             ),
             CustomText(advise((data[0]["lulus"]).toString())),
-            SizedBox(
+            const SizedBox(
               height: 17,
             ),
-            Container(
-              child: Column(
-                children: [
-                  Text(
-                    "Summary",
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: getColorFromHex("#344767")),
+            Column(
+              children: [
+                Text(
+                  "Summary",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: getColorFromHex("#344767")),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                _buildSummary(data[0]["result"]),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, "/deteksi-mandiri", (r) => false);
+                  },
+                  child: const Text("Go Back"),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.pink),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  _buildSummary(data[0]["result"]),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, "/deteksi-mandiri", (r) => false);
-                    },
-                    child: Text("Go Back"),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.pink),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             )
           ])),
       backgroundColor: Colors.grey.shade200,
