@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class EditOption extends StatefulWidget {
   int pk1 = 0;
   int pk2 = 0;
   List data = [];
 
-  EditOption(this.pk1, this.pk2, this.data);
+  EditOption(this.pk1, this.pk2, this.data, {Key? key}) : super(key: key);
 
   @override
   _EditOptionState createState() => _EditOptionState();
 }
 
 class _EditOptionState extends State<EditOption> {
+  // ignore: non_constant_identifier_names
   List user_option = [];
 
   final GlobalKey<FormState> _editQuestionForm = GlobalKey<FormState>();
@@ -40,7 +42,7 @@ class _EditOptionState extends State<EditOption> {
             color: getColorFromHex("#344767"),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 32,
         )
       ],
@@ -54,8 +56,8 @@ class _EditOptionState extends State<EditOption> {
           initialValue: user_option[index - 1]["answer"],
           decoration: InputDecoration(
             labelText: "Answer " + index.toString(),
-            labelStyle: TextStyle(color: Colors.pink),
-            focusedBorder: UnderlineInputBorder(
+            labelStyle: const TextStyle(color: Colors.pink),
+            focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.pink,
                 width: 1.4,
@@ -76,12 +78,12 @@ class _EditOptionState extends State<EditOption> {
             user_option[index - 1]["answer"] = value;
           },
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         TextFormField(
           initialValue: user_option[index - 1]["poin"].toString(),
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: "Poin",
             labelStyle: TextStyle(color: Colors.pink),
             focusedBorder: UnderlineInputBorder(
@@ -111,7 +113,7 @@ class _EditOptionState extends State<EditOption> {
             user_option[index - 1]["poin"] = value;
           },
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Row(
@@ -119,7 +121,7 @@ class _EditOptionState extends State<EditOption> {
           children: [
             Column(
               children: [
-                Text(
+                const Text(
                   "Correct",
                   style: TextStyle(color: Colors.pink),
                 ),
@@ -137,7 +139,7 @@ class _EditOptionState extends State<EditOption> {
             ),
             Column(
               children: [
-                Text(
+                const Text(
                   "Delete",
                   style: TextStyle(color: Colors.pink),
                 ),
@@ -155,7 +157,7 @@ class _EditOptionState extends State<EditOption> {
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
       ],
@@ -170,7 +172,7 @@ class _EditOptionState extends State<EditOption> {
 
   Widget _buildButton() {
     return Column(children: [
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
       Row(
@@ -181,7 +183,7 @@ class _EditOptionState extends State<EditOption> {
               if (_editQuestionForm.currentState!.validate()) {
                 _editQuestionForm.currentState?.save();
 
-                final response = await http.post(
+                await http.post(
                     Uri.parse(
                         'https://temenin-isoman.herokuapp.com/deteksimandiri/save-options/'),
                     headers: <String, String>{
@@ -196,7 +198,7 @@ class _EditOptionState extends State<EditOption> {
                 return;
               }
             },
-            child: Text('Submit'),
+            child: const Text('Submit'),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.pink),
             ),
@@ -224,11 +226,11 @@ class _EditOptionState extends State<EditOption> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Deteksi Mandiri"),
+        title: const Text("Deteksi Mandiri"),
         backgroundColor: Colors.pink,
       ),
       body: Padding(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Form(
               key: _editQuestionForm,
               child: ListView(
