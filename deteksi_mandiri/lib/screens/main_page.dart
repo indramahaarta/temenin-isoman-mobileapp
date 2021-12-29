@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
   Widget _buildHeader() {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 32,
         ),
         Text(
@@ -62,7 +62,7 @@ class _MainPageState extends State<MainPage> {
             color: getColorFromHex("#344767"),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],
@@ -88,7 +88,7 @@ class _MainPageState extends State<MainPage> {
         };
       } else {
         return () async {
-          final response = await http.post(
+          await http.post(
               Uri.parse(
                   'https://temenin-isoman.herokuapp.com/deteksimandiri/delete-assessments/' +
                       pk.toString()),
@@ -107,7 +107,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     Widget cancelButton = TextButton(
-      child: Text(
+      child: const Text(
         "No",
         style: TextStyle(color: Colors.pink),
       ),
@@ -117,12 +117,12 @@ class _MainPageState extends State<MainPage> {
     );
 
     Widget continueButton = TextButton(
-      child: Text("Yes", style: TextStyle(color: Colors.pink)),
+      child: const Text("Yes", style: TextStyle(color: Colors.pink)),
       onPressed: getOnPressedAction(action),
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text("WARNING"),
+      title: const Text("WARNING"),
       content: Text(getContentText(action, data)),
       actions: [
         cancelButton,
@@ -140,14 +140,14 @@ class _MainPageState extends State<MainPage> {
 
   showAlertWarningDialog(BuildContext context) {
     Widget continueButton = TextButton(
-        child: Text("Yes", style: TextStyle(color: Colors.pink)),
+        child: const Text("Yes", style: TextStyle(color: Colors.pink)),
         onPressed: () {
           Navigator.of(context).pop();
         });
 
     AlertDialog alert = AlertDialog(
-      title: Text("FAILED"),
-      content: Text("You need login to start this Assessment!"),
+      title: const Text("FAILED"),
+      content: const Text("You need login to start this Assessment!"),
       actions: [
         continueButton,
       ],
@@ -169,7 +169,7 @@ class _MainPageState extends State<MainPage> {
           if (snapshot.hasData) {
             var data = snapshot.data ?? [];
             return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: data.length,
                 itemBuilder: (context, index) {
@@ -189,15 +189,15 @@ class _MainPageState extends State<MainPage> {
                                     "start_assessment");
                               },
                               style: ButtonStyle(
-                                visualDensity:
-                                    VisualDensity(vertical: -1, horizontal: -1),
+                                visualDensity: const VisualDensity(
+                                    vertical: -1, horizontal: -1),
                                 backgroundColor:
                                     MaterialStateProperty.all(Colors.pink),
                               ),
                               child: Text(
                                 data[index]["fields"]["name"],
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.normal,
                                   color: Colors.white,
@@ -210,15 +210,15 @@ class _MainPageState extends State<MainPage> {
                               showAlertWarningDialog(context);
                             },
                             style: ButtonStyle(
-                              visualDensity:
-                                  VisualDensity(vertical: -1, horizontal: -1),
+                              visualDensity: const VisualDensity(
+                                  vertical: -1, horizontal: -1),
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.pink),
                             ),
                             child: Text(
                               data[index]["fields"]["name"],
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white,
@@ -238,7 +238,7 @@ class _MainPageState extends State<MainPage> {
                                       .roles
                                       .contains("admin"))) {
                             return Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -264,11 +264,11 @@ class _MainPageState extends State<MainPage> {
                                                     "required_score_to_pass"])),
                                       );
                                     },
-                                    style: ButtonStyle(
+                                    style: const ButtonStyle(
                                       visualDensity: VisualDensity(
                                           vertical: -3, horizontal: -4),
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       'Edit',
                                       style: TextStyle(
                                         color: Colors.green,
@@ -277,7 +277,7 @@ class _MainPageState extends State<MainPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10.0,
                                   ),
                                   OutlinedButton(
@@ -288,11 +288,11 @@ class _MainPageState extends State<MainPage> {
                                                 data[index]["pk"])),
                                       );
                                     },
-                                    style: ButtonStyle(
+                                    style: const ButtonStyle(
                                       visualDensity: VisualDensity(
                                           vertical: -3, horizontal: -4),
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       'Show Questions',
                                       style: TextStyle(
                                         color: Colors.blue,
@@ -301,7 +301,7 @@ class _MainPageState extends State<MainPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10.0,
                                   ),
                                   OutlinedButton(
@@ -312,11 +312,11 @@ class _MainPageState extends State<MainPage> {
                                           data[index]["pk"],
                                           "delete_assessment");
                                     },
-                                    style: ButtonStyle(
+                                    style: const ButtonStyle(
                                       visualDensity: VisualDensity(
                                           vertical: -3, horizontal: -4),
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       'Delete',
                                       style: TextStyle(
                                         color: Colors.red,
@@ -391,7 +391,7 @@ class _MainPageState extends State<MainPage> {
                         CreateAssessment("Create Assessment")),
               );
             },
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           );
         }
         return const Text("");
@@ -403,7 +403,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Deteksi Mandiri',
+        title: const Text('Deteksi Mandiri',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.normal,
@@ -414,7 +414,7 @@ class _MainPageState extends State<MainPage> {
       ),
       drawer: customDrawer(context, futureUser),
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: Column(
           children: [
             _buildHeader(),
