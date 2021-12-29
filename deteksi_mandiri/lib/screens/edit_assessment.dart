@@ -3,16 +3,21 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class EditAssessment extends StatefulWidget {
   String title = "";
   int pk = 0;
   String name = "";
   String topic = "";
+  // ignore: non_constant_identifier_names
   int number_of_question = 0;
+  // ignore: non_constant_identifier_names
   int required_score_to_pass = 0;
 
   EditAssessment(this.title, this.pk, this.name, this.topic,
-      this.number_of_question, this.required_score_to_pass);
+      this.number_of_question, this.required_score_to_pass,
+      {Key? key})
+      : super(key: key);
 
   @override
   _EditAssessmentState createState() => _EditAssessmentState();
@@ -21,7 +26,9 @@ class EditAssessment extends StatefulWidget {
 class _EditAssessmentState extends State<EditAssessment> {
   String name = "";
   String topic = "";
+  // ignore: non_constant_identifier_names
   int number_of_question = 0;
+  // ignore: non_constant_identifier_names
   int required_score_to_pass = 0;
 
   final GlobalKey<FormState> _editAssessmentForm = GlobalKey<FormState>();
@@ -48,7 +55,7 @@ class _EditAssessmentState extends State<EditAssessment> {
             color: getColorFromHex("#344767"),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 32,
         ),
       ],
@@ -58,7 +65,7 @@ class _EditAssessmentState extends State<EditAssessment> {
   Widget _buildName() {
     return TextFormField(
       initialValue: widget.name,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Name",
         labelStyle: TextStyle(color: Colors.pink),
         focusedBorder: UnderlineInputBorder(
@@ -83,7 +90,7 @@ class _EditAssessmentState extends State<EditAssessment> {
   Widget _buildTopic() {
     return TextFormField(
       initialValue: widget.topic,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Topic",
         labelStyle: TextStyle(color: Colors.pink),
         focusedBorder: UnderlineInputBorder(
@@ -108,7 +115,7 @@ class _EditAssessmentState extends State<EditAssessment> {
   Widget _buildNumberOfQuestion() {
     return TextFormField(
       initialValue: widget.number_of_question.toString(),
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Number Of Question",
         labelStyle: TextStyle(color: Colors.pink),
         focusedBorder: UnderlineInputBorder(
@@ -139,7 +146,7 @@ class _EditAssessmentState extends State<EditAssessment> {
   Widget _buildRequiredScoreToPass() {
     return TextFormField(
       initialValue: widget.required_score_to_pass.toString(),
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Required Score to Pass",
         labelStyle: TextStyle(color: Colors.pink),
         focusedBorder: UnderlineInputBorder(
@@ -171,7 +178,7 @@ class _EditAssessmentState extends State<EditAssessment> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Deteksi Mandiri"),
+          title: const Text("Deteksi Mandiri"),
           backgroundColor: Colors.pink,
         ),
         body: ListView(
@@ -179,7 +186,7 @@ class _EditAssessmentState extends State<EditAssessment> {
           reverse: true,
           children: [
             Padding(
-              padding: EdgeInsets.all(32),
+              padding: const EdgeInsets.all(32),
               child: Form(
                 key: _editAssessmentForm,
                 child: Column(
@@ -187,19 +194,19 @@ class _EditAssessmentState extends State<EditAssessment> {
                   children: [
                     _buildHeader(widget.title),
                     _buildName(),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     _buildTopic(),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     _buildNumberOfQuestion(),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     _buildRequiredScoreToPass(),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     ElevatedButton(
@@ -252,7 +259,7 @@ class _EditAssessmentState extends State<EditAssessment> {
                           return;
                         }
                       },
-                      child: Text("Submit"),
+                      child: const Text("Submit"),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.pink)),
