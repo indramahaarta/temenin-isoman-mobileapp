@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class CreateAssessment extends StatefulWidget {
   String title = "";
 
-  CreateAssessment(this.title);
+  CreateAssessment(this.title, {Key? key}) : super(key: key);
 
   @override
   _CreateAssessmentState createState() => _CreateAssessmentState();
@@ -15,7 +16,9 @@ class CreateAssessment extends StatefulWidget {
 class _CreateAssessmentState extends State<CreateAssessment> {
   String name = "";
   String topic = "";
+  // ignore: non_constant_identifier_names
   int number_of_question = 0;
+  // ignore: non_constant_identifier_names
   int required_score_to_pass = 0;
 
   final GlobalKey<FormState> _createAssessmentForm = GlobalKey<FormState>();
@@ -42,7 +45,7 @@ class _CreateAssessmentState extends State<CreateAssessment> {
             color: getColorFromHex("#344767"),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 32,
         ),
       ],
@@ -51,7 +54,7 @@ class _CreateAssessmentState extends State<CreateAssessment> {
 
   Widget _buildName() {
     return TextFormField(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Name",
         labelStyle: TextStyle(color: Colors.pink),
         focusedBorder: UnderlineInputBorder(
@@ -75,7 +78,7 @@ class _CreateAssessmentState extends State<CreateAssessment> {
 
   Widget _buildTopic() {
     return TextFormField(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Topic",
         labelStyle: TextStyle(color: Colors.pink),
         focusedBorder: UnderlineInputBorder(
@@ -99,7 +102,7 @@ class _CreateAssessmentState extends State<CreateAssessment> {
 
   Widget _buildNumberOfQuestion() {
     return TextFormField(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Number Of Question",
         labelStyle: TextStyle(color: Colors.pink),
         focusedBorder: UnderlineInputBorder(
@@ -129,7 +132,7 @@ class _CreateAssessmentState extends State<CreateAssessment> {
 
   Widget _buildRequiredScoreToPass() {
     return TextFormField(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Required Score to Pass",
         labelStyle: TextStyle(color: Colors.pink),
         focusedBorder: UnderlineInputBorder(
@@ -161,7 +164,7 @@ class _CreateAssessmentState extends State<CreateAssessment> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Deteksi Mandiri"),
+          title: const Text("Deteksi Mandiri"),
           backgroundColor: Colors.pink,
         ),
         body: ListView(
@@ -169,7 +172,7 @@ class _CreateAssessmentState extends State<CreateAssessment> {
           reverse: true,
           children: [
             Padding(
-              padding: EdgeInsets.all(32),
+              padding: const EdgeInsets.all(32),
               child: Form(
                 key: _createAssessmentForm,
                 child: Column(
@@ -177,19 +180,19 @@ class _CreateAssessmentState extends State<CreateAssessment> {
                   children: [
                     _buildHeader(widget.title),
                     _buildName(),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     _buildTopic(),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     _buildNumberOfQuestion(),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     _buildRequiredScoreToPass(),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     ElevatedButton(
@@ -199,8 +202,7 @@ class _CreateAssessmentState extends State<CreateAssessment> {
 
                           final response = await http.post(
                               Uri.parse(
-                                  'https://temenin-isoman.herokuapp.com/deteksimandiri/create-assessment' +
-                                      '/save'),
+                                  'https://temenin-isoman.herokuapp.com/deteksimandiri/create-assessment/save'),
                               headers: <String, String>{
                                 'Content-Type':
                                     'application/json;charset=UTF-8',
@@ -230,7 +232,7 @@ class _CreateAssessmentState extends State<CreateAssessment> {
                           return;
                         }
                       },
-                      child: Text("Submit"),
+                      child: const Text("Submit"),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.pink),
                       ),
