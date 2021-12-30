@@ -7,7 +7,7 @@ class DayItem extends StatelessWidget {
   final Day day;
   final DateTime quarantineStart;
 
-  final num currentDay;
+  final int currentDay;
 
   DayItem({
     Key? key,
