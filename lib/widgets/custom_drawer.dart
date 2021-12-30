@@ -8,6 +8,7 @@ import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/main.dart';
+import 'package:bed_capacity/main.dart';
 
 Widget customDrawer(BuildContext context, Future<User?> futureUser) {
   void logout() async {
@@ -69,6 +70,7 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
         Container(
           height: 20,
         ),
+
         _drawerTile(
           context,
           "Home Page",
@@ -79,7 +81,7 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
           context,
           "Bed Capacity",
           Icons.bed,
-          HomeScreen.routeName,
+          AreaList.routeName,
         ),
         _drawerTile(
           context,
