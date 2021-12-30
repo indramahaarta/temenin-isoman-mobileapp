@@ -50,7 +50,6 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return const ChecklistHome();
-            // return Text("Logged in as ${(snapshot.data as User).username}");
           } else if (snapshot.hasError ||
               (snapshot.connectionState == ConnectionState.done &&
                   snapshot.data == null)) {
