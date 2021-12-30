@@ -20,9 +20,9 @@ class DayItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: currentDay == day.day
+        color: currentDay == day.day - 1
             ? Colors.pink.shade300
-            : currentDay > day.day
+            : currentDay > day.day - 1
                 ? Colors.green.shade300
                 : Colors.blue.shade300,
         borderRadius: const BorderRadius.all(Radius.circular(16)),
