@@ -16,7 +16,7 @@ class BedRequestConfirmationPage extends StatelessWidget {
               child: Text("Bed Request", style: myTextTheme.overline),
             ),
         ),
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -30,7 +30,7 @@ class BedRequestConfirmationPage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey),),
               Padding(
-                padding: EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 40.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: btnColor,
@@ -38,7 +38,7 @@ class BedRequestConfirmationPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.popUntil(context, ModalRoute.withName('/'));
                   },
-                  child: Text('KEMBALI', style: TextStyle(color: darkPrimaryColor),),
+                  child: const Text('KEMBALI', style: TextStyle(color: darkPrimaryColor),),
                 ),
               ),
             ],

@@ -2,18 +2,16 @@ import 'package:bed_capacity/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
 import 'package:bed_capacity/models/models.dart';
 import 'package:bed_capacity/common/styles.dart';
-import 'package:bed_capacity/widgets/hospital_button.dart';
 
 class HospitalList extends StatefulWidget {
   static const String routeName = '/hospital_list';
-  Area area;
+  final Area area;
   static const areaButtonColor = Color(0xFFEEEEEE);
   static const areaButtonActiveColor = Color(0xFFFFF4D4);
 
-  HospitalList({Key? key, required this.area}) : super(key: key);
+  const HospitalList({Key? key, required this.area}) : super(key: key);
 
   @override
   _HospitalListState createState() => _HospitalListState();
@@ -121,49 +119,47 @@ class _HospitalListState extends State<HospitalList> {
                         style: myTextTheme.headline6,
                       ),
                     ),
-                    Container(
-                      child: FutureBuilder<List<Hospital>>(
-                        future: _hospitals,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var widgets = <Widget>[];
+                    FutureBuilder<List<Hospital>>(
+                      future: _hospitals,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          var widgets = <Widget>[];
 
-                            for (var hospital in snapshot.data!) {
-                              var button = Padding(
-                                padding: const EdgeInsets.only(left: 35, bottom: 15),
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      choice = choice == hospital ? null : hospital;
-                                    });
-                                  },
-                                  child: buildHospitalButton(hospital),
-                                ),
-                              );
-
-                              widgets.add(button);
-                            }
-
-                            return Column(
-                              children: widgets,
+                          for (var hospital in snapshot.data!) {
+                            var button = Padding(
+                              padding: const EdgeInsets.only(left: 35, bottom: 15),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    choice = choice == hospital ? null : hospital;
+                                  });
+                                },
+                                child: buildHospitalButton(hospital),
+                              ),
                             );
+
+                            widgets.add(button);
                           }
-                          else if (snapshot.hasError) {
-                            return Text("gagal");
-                          }
-                          return Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              children: const [
-                                Padding(
-                                    padding: EdgeInsets.only(top:100.0),
-                                    child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(darkPrimaryColor))),
-                                Padding(padding: EdgeInsets.only(top: 20.0) ,child: Text('Mengambil Data Rumah Sakit')),
-                              ],
-                            ),
+
+                          return Column(
+                            children: widgets,
                           );
-                        },
-                      ),
+                        }
+                        else if (snapshot.hasError) {
+                          return const Text("gagal");
+                        }
+                        return Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: const [
+                              Padding(
+                                  padding: EdgeInsets.only(top:100.0),
+                                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(darkPrimaryColor))),
+                              Padding(padding: EdgeInsets.only(top: 20.0) ,child: Text('Mengambil Data Rumah Sakit')),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -190,7 +186,7 @@ class _HospitalListState extends State<HospitalList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding( // Nama RS
-            padding: EdgeInsets.only(left: 20.0, top: 14.0, right: 10.0),
+            padding: const EdgeInsets.only(left: 20.0, top: 14.0, right: 10.0),
             child: Text(
               hospital.nama,
               maxLines: 2,
@@ -199,7 +195,7 @@ class _HospitalListState extends State<HospitalList> {
             ),
           ),
           Padding( // Alamat RS
-            padding: EdgeInsets.only(left: 25.0, right: 10.0, top: 10.0),
+            padding: const EdgeInsets.only(left: 25.0, right: 10.0, top: 10.0),
             child: Row(
               children: <Widget> [
                 const Padding(
@@ -218,7 +214,7 @@ class _HospitalListState extends State<HospitalList> {
             ),
           ),
           Padding( // Telpon
-            padding: EdgeInsets.only(left: 25.0, right: 10.0, top: 10.0),
+            padding: const EdgeInsets.only(left: 25.0, right: 10.0, top: 10.0),
             child: Row(
               children: <Widget> [
                 const Padding(
@@ -237,7 +233,7 @@ class _HospitalListState extends State<HospitalList> {
             ),
           ),
           Padding( // Isi / Kapasitas
-            padding: EdgeInsets.only(left: 25.0, right: 10.0, top: 10.0, bottom: 20.0),
+            padding: const EdgeInsets.only(left: 25.0, right: 10.0, top: 10.0, bottom: 20.0),
             child: Row(
               children: <Widget> [
                 const Padding(

@@ -24,9 +24,8 @@ class AreaList extends StatefulWidget {
 class _AreaListState extends State<AreaList> {
   late Future<List<Area>> _areas;
   late Future<User?> futureUser;
-  List<Widget> _areaListWidget = [];
   String debugger = 'test';
-  Map<int, Area> areaObjects = Map<int, Area>();
+  Map<int, Area> areaObjects = <int, Area>{};
   Area? choice;
 
   // Wilayah data fetcher
@@ -125,55 +124,53 @@ class _AreaListState extends State<AreaList> {
                         style: myTextTheme.headline6,
                       ),
                     ),
-                    Container(
-                      child: FutureBuilder<List<Area>>(
-                        future: _areas,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var widgets = <Widget>[];
+                    FutureBuilder<List<Area>>(
+                      future: _areas,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          var widgets = <Widget>[];
 
-                            for (var area in snapshot.data!) {
-                              var button = Padding(
-                                padding: const EdgeInsets.only(left: 35, bottom: 15),
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      choice = choice == area ? null : area;
-                                    });
-                                  },
-                                  child: buildAreaButton(area),
-                                ),
-                              );
-
-                              widgets.add(button);
-                            }
-
-                            return Column(
-                              children: widgets,
-                            );
-                          }
-                          else if (snapshot.hasError) {
-                            return const Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: EdgeInsets.only(top:100.0),
-                                child: Text("Terjadi Error"),
+                          for (var area in snapshot.data!) {
+                            var button = Padding(
+                              padding: const EdgeInsets.only(left: 35, bottom: 15),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    choice = choice == area ? null : area;
+                                  });
+                                },
+                                child: buildAreaButton(area),
                               ),
                             );
+
+                            widgets.add(button);
                           }
-                          return Align(
+
+                          return Column(
+                            children: widgets,
+                          );
+                        }
+                        else if (snapshot.hasError) {
+                          return const Align(
                             alignment: Alignment.center,
-                            child: Column(
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.only(top:100.0),
-                                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(darkPrimaryColor))),
-                                Padding(padding: EdgeInsets.only(top: 20.0) ,child: Text('Mengambil Data Wilayah')),
-                              ],
+                            child: Padding(
+                              padding: EdgeInsets.only(top:100.0),
+                              child: Text("Terjadi Error"),
                             ),
                           );
-                        },
-                      ),
+                        }
+                        return Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.only(top:100.0),
+                                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(darkPrimaryColor))),
+                              Padding(padding: EdgeInsets.only(top: 20.0) ,child: Text('Mengambil Data Wilayah')),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
