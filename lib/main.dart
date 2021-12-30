@@ -1,3 +1,4 @@
+import 'package:deteksi_mandiri/deteksi_mandiri.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_notes/happy_notes.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
@@ -54,6 +55,8 @@ class TemeninIsomanApp extends StatelessWidget {
         ),
         BedRequestConfirmationPage.routeName: (context) => const BedRequestConfirmationPage(),
 
+        //Deteksi Mandiri routes
+        DeteksiMandiri.routeName: (context) => const DeteksiMandiri(),
       },
     );
   }

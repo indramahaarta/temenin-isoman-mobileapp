@@ -1,3 +1,4 @@
+import 'package:deteksi_mandiri/deteksi_mandiri.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_notes/happy_notes.dart';
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
@@ -60,7 +61,7 @@ Widget category(BuildContext context) {
               Icons.sick_outlined,
               const Color(0xfffa8c73),
               const Color(0xfffa9881),
-              HomeScreen.routeName,
+              DeteksiMandiri.routeName,
               context,
             ),
             _categoryCard(
