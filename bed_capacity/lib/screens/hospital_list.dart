@@ -88,6 +88,11 @@ class _HospitalListState extends State<HospitalList> {
                               arguments: choice,
                             );
                           }
+                          else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Mohon pilih rumah sakit terlebih dahulu!')),
+                            );
+                          }
                         },
                         child: const Text(
                           "PILIH",
@@ -146,9 +151,16 @@ class _HospitalListState extends State<HospitalList> {
                           else if (snapshot.hasError) {
                             return Text("gagal");
                           }
-                          return const Align(
+                          return Align(
                             alignment: Alignment.center,
-                            child: CircularProgressIndicator(),
+                            child: Column(
+                              children: const [
+                                Padding(
+                                    padding: EdgeInsets.only(top:100.0),
+                                    child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(darkPrimaryColor))),
+                                Padding(padding: EdgeInsets.only(top: 20.0) ,child: Text('Mengambil Data Rumah Sakit')),
+                              ],
+                            ),
                           );
                         },
                       ),

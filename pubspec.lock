@@ -440,11 +440,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "2.3.2"
-=======
     version: "2.3.3"
->>>>>>> refs/remotes/origin/master
   xdg_directories:
     dependency: transitive
     description:

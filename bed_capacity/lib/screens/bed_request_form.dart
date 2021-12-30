@@ -1,3 +1,4 @@
+import 'package:bed_capacity/main.dart';
 import 'package:flutter/material.dart';
 import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
 import 'package:bed_capacity/models/hospital.dart';
@@ -182,6 +183,9 @@ class _BedRequestFormState extends State<BedRequestForm> {
             }
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: btnColor,
+            ),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
                 var request = http.MultipartRequest(
@@ -201,13 +205,14 @@ class _BedRequestFormState extends State<BedRequestForm> {
 
                 await request.send();
 
-                Navigator.popUntil(context, ModalRoute.withName('/'));
+                Navigator.pushNamed(context, BedRequestConfirmationPage.routeName);
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Data Bed Request Berhasil Dikirim')),
                 );
               }
             },
-            child: const Text('KIRIM'),
+            child: const Text('KIRIM', style: TextStyle(color: darkPrimaryColor),),
           ),
         ],
       ),

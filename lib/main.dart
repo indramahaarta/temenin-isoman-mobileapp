@@ -52,6 +52,7 @@ class TemeninIsomanApp extends StatelessWidget {
         BedRequestForm.routeName: (context) => BedRequestForm(
           hospital: ModalRoute.of(context)?.settings.arguments as Hospital,
         ),
+        BedRequestConfirmationPage.routeName: (context) => const BedRequestConfirmationPage(),
 
       },
     );
