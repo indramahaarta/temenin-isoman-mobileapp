@@ -67,7 +67,7 @@ class _DaerahFormState extends State<DaerahForm> {
                   onPressed: () {
                     if (formKey.currentState?.validate() ?? false) {
                       Daerah newDaerah = Daerah(
-                        nama: nama,
+                        daerah: nama,
                         pk: 1,
                       );
                       addNewDaerah(newDaerah).then((value) =>

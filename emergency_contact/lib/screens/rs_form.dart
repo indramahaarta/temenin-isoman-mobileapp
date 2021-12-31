@@ -5,9 +5,9 @@ import 'package:emergency_contact/methods/add_rs.dart';
 import 'package:emergency_contact/methods/get_daerah.dart';
 import 'package:emergency_contact/models/rumah_sakit.dart';
 import 'package:emergency_contact/models/daerah.dart';
+import 'package:emergency_contact/screens/list_daerah.dart';
 import 'package:emergency_contact/main.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class RSForm extends StatefulWidget {
   static const routeName = '/rs-form';
@@ -23,7 +23,6 @@ class _RSFormState extends State<RSForm> {
   late String nama;
   late String alamat;
   late int telepon;
-  Future<List<Daerah>> futureDaerah = fetchDaerah();
 
   final formKey = GlobalKey<FormState>();
 
@@ -31,6 +30,8 @@ class _RSFormState extends State<RSForm> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.daerah.daerah);
+    print(widget.daerah.pk);
     return Scaffold(
       appBar: AppBar(
         title: Text("Input RS Baru", style: myTextTheme.headline6),
@@ -100,76 +101,24 @@ class _RSFormState extends State<RSForm> {
                     },
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Text('Pilih Daerah:', textAlign: TextAlign.left),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: FutureBuilder<List<Daerah>>(
-                //     future: futureDaerah,
-                //     builder: (context, snapshot) {
-                //       if (snapshot.hasData) {
-                //         var listDaerah = <Daerah>[];
-                //         for (Daerah daerah in snapshot.data!) {
-                //           listDaerah.add(daerah);
-                //         }
-                //         return DropdownButton(
-                //           items: listDaerah.map((loc) {
-                //             return DropdownMenuItem(
-                //               child: Text(loc.nama),
-                //               value: loc.pk,
-                //             );
-                //           }).toList(),
-                //           value: _value,
-                //           onChanged: (int? newValue) {
-                //             setState(() {
-                //               _value = newValue;
-                //             });
-                //           },
-                //         );
-                //       }
-                //       return Align(
-                //         alignment: Alignment.center,
-                //         child: Column(
-                //           children: const [
-                //             Padding(
-                //                 padding: EdgeInsets.only(top: 20.0),
-                //                 child: Text('Belum ada wilayah')),
-                //           ],
-                //         ),
-                //       );
-                //     },
-                //   ),
-                //   // child: DropdownButton(
-                //   //   dropDownButton
-                // ),
                 ElevatedButton(
                   child: Text('Submit'),
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      var request = http.MultipartRequest(
-                          "POST",
-                          Uri.parse(
-                              "https://temenin-isoman.herokuapp.com/emergency-contact/add-daerah"));
-
-                      request.fields['nama'] = nama;
-                      request.fields['alamat'] = alamat;
-                      request.fields['telepon'] = '$telepon';
-                      int pk = widget.daerah.pk;
-                      request.fields['daerah'] = '$pk';
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Memproses Data')),
-                      );
-
-                      await request.send();
-
-                      Navigator.pushNamed(context, ListDaerahPage.routeName);
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Berhasil')),
-                      );
+                  onPressed: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      RumahSakit newRS = RumahSakit(
+                          nama: nama,
+                          alamat: alamat,
+                          telepon: telepon,
+                          daerah: widget.daerah.pk);
+                      addNewRS(newRS).then((value) =>
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                            value,
+                          ))));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const ListDaerahPage();
+                      }));
                     }
                   },
                   style: ElevatedButton.styleFrom(

@@ -5,7 +5,7 @@ import 'package:emergency_contact/models/rumah_sakit.dart';
 
 Future<dynamic> addNewDaerah(Daerah daerah) async {
   var url = Uri.parse(
-      'https://temenin-isoman.herokuapp.com/tips-and-tricks/add-daerah-from-flutter');
+      'https://temenin-isoman.herokuapp.com/emergency-contact/add-daerah-from-flutter');
   var response = await http.post(url,
       headers: {
         "Access-Control_Allow_Origin": "*",

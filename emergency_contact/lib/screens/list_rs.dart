@@ -10,7 +10,6 @@ import 'package:emergency_contact/screens/list_daerah.dart';
 import 'package:emergency_contact/screens/rs_form.dart';
 import 'package:emergency_contact/widget/scrollable_widget.dart';
 import 'package:emergency_contact/models/rumah_sakit.dart';
-import 'package:emergency_contact/utils.dart';
 import 'package:emergency_contact/widget/text_dialog_widget.dart';
 // import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
@@ -32,7 +31,6 @@ class _ListRSPageState extends State<ListRSPage> {
   RumahSakit? rsPilihan;
   late Future<User?> futureUser;
 
-  // Hospital data fetcher
   Future<List<RumahSakit>> fetchRS() async {
     var url = Uri.parse(
         'https://temenin-isoman.herokuapp.com/bed-capacity/daerah_json/' +
@@ -163,7 +161,7 @@ class _ListRSPageState extends State<ListRSPage> {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      "Daftar Rumah Sakit di " + daerah.nama,
+                      "Daftar Rumah Sakit di " + daerah.daerah,
                       style: myTextTheme.headline6,
                     ),
                   ),
@@ -187,7 +185,7 @@ class _ListRSPageState extends State<ListRSPage> {
                         builder: (context, snapshot) {
                           if (snapshot.data!.length == 0) {
                             return Text(
-                                "Belum ada rumah sakit di " + daerah.nama);
+                                "Belum ada rumah sakit di " + daerah.daerah);
                           } else if (snapshot.hasData) {
                             var widgetRS = <Widget>[];
 

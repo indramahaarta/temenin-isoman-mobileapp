@@ -1,38 +1,62 @@
 import 'package:emergency_contact/models/daerah.dart';
-import 'package:emergency_contact/models/rumah_sakit.dart';
 import 'package:flutter/material.dart';
 import 'package:temenin_isoman_mobileapp/models/user.dart';
 import 'package:temenin_isoman_mobileapp/utils/user.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
 import 'package:emergency_contact/common/styles.dart';
-import 'package:emergency_contact/methods/get_daerah.dart';
-import 'package:emergency_contact/models/daerah.dart';
-import 'package:emergency_contact/screens/list_rs.dart';
-import 'package:emergency_contact/screens/list_rs_dummies.dart';
-import 'package:emergency_contact/screens/daerah_form.dart';
-import 'package:emergency_contact/main.dart';
-// import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'package:emergency_contact/screens/list_daerah.dart';
+import 'package:emergency_contact/screens/rs_form.dart';
+import 'package:emergency_contact/widget/scrollable_widget.dart';
+import 'package:emergency_contact/models/rumah_sakit.dart';
+import 'package:emergency_contact/dummy.dart';
 
-class ListDaerahPage extends StatefulWidget {
-  static const routeName = '/list-daerah';
-  static const areaButtonColor = Colors.amber;
+class ListRSDummies extends StatefulWidget {
+  static const routeName = '/list-rs-dummies';
+  Daerah daerah;
+  static const areaButtonColor = Color(0xFFEEEEEE);
   static const areaButtonActiveColor = Colors.pink;
 
-  const ListDaerahPage({Key? key}) : super(key: key);
+  ListRSDummies({Key? key, required this.daerah}) : super(key: key);
 
   @override
-  _ListDaerahPageState createState() => _ListDaerahPageState();
+  _ListRSDummiesState createState() => _ListRSDummiesState();
 }
 
-class _ListDaerahPageState extends State<ListDaerahPage> {
-  late Future<List<Daerah>> listDaerah;
+class _ListRSDummiesState extends State<ListRSDummies> {
+  late Daerah daerah;
+  late Future<List<RumahSakit>> listRS;
+  RumahSakit? rsPilihan;
   late Future<User?> futureUser;
-  Daerah? chosen;
+  int callTo = 0;
+
+  Future<List<RumahSakit>> fetchRS() async {
+    var url = Uri.parse(
+        'https://temenin-isoman.herokuapp.com/bed-capacity/daerah_json/' +
+            daerah.pk.toString());
+
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      var rsObj = data.map((x) => RumahSakit.fromJson(x));
+      List<RumahSakit> _listRS = [];
+
+      for (var rs in rsObj) {
+        _listRS.add(rs);
+      }
+      return _listRS;
+    } else {
+      throw Exception("failed to load Wilayah data");
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    listDaerah = fetchDaerah();
+    listRS = fetchRS();
+    daerah = widget.daerah;
     futureUser = fetchUser();
   }
 
@@ -44,9 +68,8 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
         appBar: AppBar(
             backgroundColor: darkPrimaryColor,
             title: Center(
-              child: Text("List Daerah", style: myTextTheme.headline5),
+              child: Text("Daftar RS", style: myTextTheme.headline5),
             )),
-        drawer: customDrawer(context, futureUser),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -56,7 +79,7 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
               FloatingActionButton(
                 backgroundColor: Color(0xFFF48FB1),
                 child: const Icon(Icons.call),
-                tooltip: 'Telepon hotline utama Covid-19',
+                tooltip: 'Telepon RS yang dipilih',
                 onPressed: () => {
                   showDialog(
                       context: context,
@@ -112,7 +135,7 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
               FloatingActionButton(
                   backgroundColor: Color(0xFFF48FB1),
                   child: const Icon(Icons.add),
-                  tooltip: 'Tambah Daerah Baru',
+                  tooltip: 'Tambah RS Baru',
                   onPressed: () => {
                         showDialog(
                             context: context,
@@ -126,12 +149,16 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
                                           (snapshot.data as User)
                                               .roles
                                               .contains("admin"))) {
-                                    return const DaerahForm();
+                                    Navigator.pushNamed(
+                                      context,
+                                      RSForm.routeName,
+                                      arguments: daerah,
+                                    );
                                   }
                                   return const AlertDialog(
                                     scrollable: true,
                                     title: Text(
-                                      'Tambah Daerah Baru',
+                                      'Tambah RS Baru',
                                       textAlign: TextAlign.center,
                                     ),
                                     content: Text(
@@ -148,39 +175,6 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
         ),
         body: ListView(
           children: <Widget>[
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 15.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(150, 30),
-                    maximumSize: const Size(150, 30),
-                    primary: Colors.white,
-                  ),
-                  child: const Text(
-                    "LIHAT LIST RS",
-                    style: TextStyle(color: darkPrimaryColor, fontSize: 10),
-                  ),
-                  onPressed: () {
-                    if (chosen != null) {
-                      print(chosen!.daerah);
-                      print(chosen!.pk);
-                      Navigator.pushNamed(
-                        context,
-                        ListRSDummies.routeName,
-                        arguments: chosen,
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Anda belum memilih daerah')),
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),
             ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(50.0),
@@ -188,70 +182,43 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
               ),
               child: Container(
                 color: Colors.white,
-                height: 700.0,
+                height: 1400.0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 40, top: 30, bottom: 30),
+                      padding: const EdgeInsets.only(left: 40, top: 30),
                       child: Text(
-                        "Silakan pilih wilayah:",
+                        "Pilih rumah sakit dan tekan simbol telepon:",
                         style: myTextTheme.headline6,
                       ),
                     ),
                     Container(
-                      child: FutureBuilder<List<Daerah>>(
-                        future: listDaerah,
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: FutureBuilder<List<RumahSakit>>(
+                        future: listRS,
                         builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var widgetDaerah = <Widget>[];
+                          var widgetRS = <Widget>[];
 
-                            for (var _daerah in snapshot.data!) {
-                              var button = Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 35, bottom: 15),
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      chosen =
-                                          chosen == _daerah ? null : _daerah;
-                                    });
-                                  },
-                                  child: itemDaerah(_daerah),
-                                ),
-                              );
-
-                              widgetDaerah.add(button);
-                            }
-
-                            return Column(
-                              children: widgetDaerah,
-                            );
-                          } else if (snapshot.hasError) {
-                            return const Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 100.0),
-                                child: Text("Error"),
+                          for (var rs in DUMMY_RS) {
+                            var button = Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 35, bottom: 15),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    rsPilihan = rsPilihan == rs ? null : rs;
+                                  });
+                                },
+                                child: itemRS(rs),
                               ),
                             );
+
+                            widgetRS.add(button);
                           }
-                          return Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              children: const [
-                                Padding(
-                                    padding: EdgeInsets.only(top: 100.0),
-                                    child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                darkPrimaryColor))),
-                                Padding(
-                                    padding: EdgeInsets.only(top: 20.0),
-                                    child: Text('Loading')),
-                              ],
-                            ),
+
+                          return Column(
+                            children: widgetRS,
                           );
                         },
                       ),
@@ -267,22 +234,68 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
   }
 
   @override
-  Widget itemDaerah(Daerah daerah) {
+  Widget itemRS(RumahSakit _rumahsakit) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
       child: Container(
-        width: 270.0,
-        height: 50.0,
-        color: chosen == daerah
-            ? ListDaerahPage.areaButtonActiveColor
-            : ListDaerahPage.areaButtonColor,
-        child: Row(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: Text(daerah.daerah, style: myTextTheme.button),
+        width: 330.0,
+        color: rsPilihan == _rumahsakit
+            ? ListRSDummies.areaButtonActiveColor
+            : ListRSDummies.areaButtonColor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              // Nama RS
+              padding: EdgeInsets.only(left: 20.0, top: 14.0, right: 10.0),
+              child: Text(
+                _rumahsakit.nama,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: myTextTheme.button,
+              ),
+            ),
+            Padding(
+              // Alamat RS
+              padding: EdgeInsets.only(left: 25.0, right: 10.0, top: 10.0),
+              child: Row(
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: Icon(Icons.location_city,
+                        size: 16.0, color: Colors.black),
+                  ),
+                  Expanded(
+                    child: Text(
+                      _rumahsakit.alamat,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          const TextStyle(fontSize: 10.0, color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              // Telpon
+              padding: EdgeInsets.only(left: 25.0, right: 10.0, top: 10.0),
+              child: Row(
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: Icon(Icons.call, size: 16.0, color: Colors.black),
+                  ),
+                  Expanded(
+                    child: Text(
+                      _rumahsakit.telepon.toString(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          const TextStyle(fontSize: 10.0, color: Colors.black),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

@@ -4,7 +4,7 @@ import 'package:emergency_contact/models/rumah_sakit.dart';
 
 Future<dynamic> addNewRS(RumahSakit rumahsakit) async {
   var url = Uri.parse(
-      'https://temenin-isoman.herokuapp.com/tips-and-tricks/add-rs-from-flutter');
+      'https://temenin-isoman.herokuapp.com/emergency-contact/add-rs-from-flutter');
   var response = await http.post(url,
       headers: {
         "Access-Control_Allow_Origin": "*",

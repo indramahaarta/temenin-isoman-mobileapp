@@ -72,6 +72,9 @@ class TemeninIsomanApp extends StatelessWidget {
         ListRSPage.routeName: (context) => ListRSPage(
               daerah: ModalRoute.of(context)?.settings.arguments as Daerah,
             ),
+        ListRSDummies.routeName: (context) => ListRSDummies(
+              daerah: ModalRoute.of(context)?.settings.arguments as Daerah,
+            ),
         RSForm.routeName: (context) => RSForm(
               daerah: ModalRoute.of(context)?.settings.arguments as Daerah,
             ),
