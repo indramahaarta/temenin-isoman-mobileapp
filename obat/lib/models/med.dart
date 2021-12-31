@@ -3,7 +3,6 @@
 class Obat {
   late String penyakit;
   late String penjelasan;
-  // ignore: non_constant_identifier_names
   late String daftar_obat;
 
   Obat({
