@@ -12,6 +12,7 @@ import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:checklist/main.dart';
 import 'package:tips_and_tricks/main.dart';
 import 'package:bed_capacity/main.dart';
+import 'package:emergency_contact/main.dart';
 import 'package:obat/obat.dart';
 
 Widget customDrawer(BuildContext context, Future<User?> futureUser) {
@@ -102,7 +103,7 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
           context,
           "Emergency Contact",
           Icons.warning,
-          HomeScreen.routeName,
+          ListDaerahPage.routeName,
         ),
         _drawerTile(
           context,

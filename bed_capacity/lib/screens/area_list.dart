@@ -11,7 +11,6 @@ import 'package:temenin_isoman_mobileapp/models/user.dart';
 class AreaList extends StatefulWidget {
   static const routeName = '/area_list';
 
-
   static const areaButtonColor = Color(0xFFEEEEEE);
   static const areaButtonActiveColor = Color(0xFFFFF4D4);
 
@@ -91,10 +90,11 @@ class _AreaListState extends State<AreaList> {
                               HospitalList.routeName,
                               arguments: choice,
                             );
-                          }
-                          else {
+                          } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Mohon pilih wilayah anda terlebih dahulu!')),
+                              const SnackBar(
+                                  content: Text(
+                                      'Mohon pilih wilayah anda terlebih dahulu!')),
                             );
                           }
                         },
@@ -117,9 +117,10 @@ class _AreaListState extends State<AreaList> {
                 height: 700.0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget> [
+                  children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 40, top: 30, bottom: 30),
+                      padding:
+                          const EdgeInsets.only(left: 40, top: 30, bottom: 30),
                       child: Text(
                         "Daftar Wilayah",
                         style: myTextTheme.headline6,
@@ -134,7 +135,8 @@ class _AreaListState extends State<AreaList> {
 
                             for (var area in snapshot.data!) {
                               var button = Padding(
-                                padding: const EdgeInsets.only(left: 35, bottom: 15),
+                                padding:
+                                    const EdgeInsets.only(left: 35, bottom: 15),
                                 child: InkWell(
                                   onTap: () {
                                     setState(() {
@@ -151,12 +153,11 @@ class _AreaListState extends State<AreaList> {
                             return Column(
                               children: widgets,
                             );
-                          }
-                          else if (snapshot.hasError) {
+                          } else if (snapshot.hasError) {
                             return const Align(
                               alignment: Alignment.center,
                               child: Padding(
-                                padding: EdgeInsets.only(top:100.0),
+                                padding: EdgeInsets.only(top: 100.0),
                                 child: Text("Terjadi Error"),
                               ),
                             );
@@ -166,9 +167,14 @@ class _AreaListState extends State<AreaList> {
                             child: Column(
                               children: const [
                                 Padding(
-                                  padding: EdgeInsets.only(top:100.0),
-                                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(darkPrimaryColor))),
-                                Padding(padding: EdgeInsets.only(top: 20.0) ,child: Text('Mengambil Data Wilayah')),
+                                    padding: EdgeInsets.only(top: 100.0),
+                                    child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                darkPrimaryColor))),
+                                Padding(
+                                    padding: EdgeInsets.only(top: 20.0),
+                                    child: Text('Mengambil Data Wilayah')),
                               ],
                             ),
                           );
@@ -197,12 +203,18 @@ class _AreaListState extends State<AreaList> {
     var container = Container(
       width: 320.0,
       height: 50.0,
-      color: choice == area ? AreaList.areaButtonActiveColor : AreaList.areaButtonColor,
+      color: choice == area
+          ? AreaList.areaButtonActiveColor
+          : AreaList.areaButtonColor,
       child: Row(
-        children: <Widget> [
+        children: <Widget>[
           const Padding(
-            padding: EdgeInsets.only(left:10.0),
-            child: Icon(Icons.arrow_forward_ios_sharp, size: 15.0, color: Colors.grey,),
+            padding: EdgeInsets.only(left: 10.0),
+            child: Icon(
+              Icons.arrow_forward_ios_sharp,
+              size: 15.0,
+              color: Colors.grey,
+            ),
           ),
           Align(
             alignment: Alignment.centerLeft,
