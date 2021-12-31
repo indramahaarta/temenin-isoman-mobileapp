@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:happy_notes/happy_notes.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
+
+import 'package:checklist/main.dart';
 import 'package:tips_and_tricks/common/styles.dart';
 import 'package:tips_and_tricks/main.dart';
 import 'package:bed_capacity/main.dart';
@@ -31,6 +33,9 @@ class TemeninIsomanApp extends StatelessWidget {
         LoginScreen.routeName: (context) => const LoginScreen(),
 
         // TO DO: (add your module routes here)
+
+        // Checklist routes
+        ChecklistScreen.routeName: (context) => const ChecklistScreen(),
 
         // Tips and Tricks routes
         TipsAndTricksListPage.routeName: (context) =>
