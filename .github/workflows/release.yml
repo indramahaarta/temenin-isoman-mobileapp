@@ -33,9 +33,6 @@ jobs:
       - name: Get packages
         run: flutter packages get
 
-      - name: Analyze
-        run: flutter analyze
-
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(TZ='Asia/Jakarta' date +'%A %d-%m-%Y %T WIB')"
