@@ -4,6 +4,8 @@ import 'package:emergency_contact/common/styles.dart';
 import 'package:emergency_contact/methods/add_daerah.dart';
 import 'package:emergency_contact/models/daerah.dart';
 import 'package:emergency_contact/main.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class DaerahForm extends StatefulWidget {
   static const routeName = '/daerah-form';
@@ -15,15 +17,23 @@ class DaerahForm extends StatefulWidget {
 }
 
 class _DaerahFormState extends State<DaerahForm> {
+  final daerahController = TextEditingController();
   late String nama;
 
   final formKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    daerahController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Input Daerah Baru"),
+        title: Text("Input Daerah Baru", style: myTextTheme.headline6),
         backgroundColor: Colors.pink,
       ),
       body: Form(
@@ -36,6 +46,7 @@ class _DaerahFormState extends State<DaerahForm> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: daerahController,
                     decoration: new InputDecoration(
                       hintText: "contoh: Cikarang Baru",
                       labelText: "Daerah",
@@ -55,15 +66,18 @@ class _DaerahFormState extends State<DaerahForm> {
                   child: Text('Submit'),
                   onPressed: () {
                     if (formKey.currentState?.validate() ?? false) {
-                      Daerah newDareah = Daerah(nama: nama, pk: 1);
-                      addNewDaerah(newDareah).then((value) =>
+                      Daerah newDaerah = Daerah(
+                        nama: nama,
+                        pk: 1,
+                      );
+                      addNewDaerah(newDaerah).then((value) =>
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(
                             value,
                           ))));
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return const EmergencyContactPage();
+                        return const ListDaerahPage();
                       }));
                     }
                   },

@@ -2,7 +2,7 @@ class RumahSakit {
   late String nama;
   late String alamat;
   late int telepon;
-  late int daerah;
+  late int? daerah;
 
   RumahSakit({
     required this.nama,

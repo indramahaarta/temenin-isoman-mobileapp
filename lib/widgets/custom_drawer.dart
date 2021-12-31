@@ -100,7 +100,7 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
           context,
           "Emergency Contact",
           Icons.warning,
-          EmergencyContactPage.routeName,
+          ListDaerahPage.routeName,
         ),
         _drawerTile(
           context,

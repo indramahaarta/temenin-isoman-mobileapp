@@ -10,6 +10,7 @@ import 'package:emergency_contact/models/daerah.dart';
 import 'package:emergency_contact/screens/list_rs.dart';
 import 'package:emergency_contact/screens/daerah_form.dart';
 import 'package:emergency_contact/main.dart';
+// import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
 class ListDaerahPage extends StatefulWidget {
   static const routeName = '/list-daerah';
@@ -42,34 +43,114 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
         appBar: AppBar(
             backgroundColor: darkPrimaryColor,
             title: Center(
-              child: Text("Emergency Contact", style: myTextTheme.overline),
+              child: Text("Emergency Contact", style: myTextTheme.headline5),
             )),
         drawer: customDrawer(context, futureUser),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              FloatingActionButton(
+                backgroundColor: Color(0xFFF48FB1),
+                child: const Icon(Icons.call),
+                tooltip: 'Telepon hotline utama Covid-19',
+                onPressed: () => {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        Widget cancelButton = TextButton(
+                          child: const Text("Tidak",
+                              style: TextStyle(color: Colors.pink)),
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                        );
+                        Widget launchButton = TextButton(
+                          child: const Text("Ya",
+                              style: TextStyle(color: Colors.pink)),
+                          onPressed: () {
+                            // UrlLauncher.launch(('tel://119'));
+                          },
+                        );
+                        return AlertDialog(
+                          title: const Text("Hotline Covid-19 (119)"),
+                          content: const Text(
+                              "Apakah Anda ingin langsung tersambung ke hotline utama Covid-19?"),
+                          actions: [
+                            cancelButton,
+                            launchButton,
+                          ],
+                        );
+                      })
+                },
+              ),
+              FloatingActionButton(
+                  backgroundColor: Color(0xFFF48FB1),
+                  child: const Icon(Icons.add),
+                  tooltip: 'Tambah Daerah Baru',
+                  onPressed: () => {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return FutureBuilder(
+                                future: futureUser,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData &&
+                                      ((snapshot.data as User).roles.contains(
+                                              "fasilitas_kesehatan") ||
+                                          (snapshot.data as User)
+                                              .roles
+                                              .contains("admin"))) {
+                                    return const DaerahForm();
+                                  }
+                                  return const AlertDialog(
+                                    scrollable: true,
+                                    title: Text(
+                                      'Tambah Daerah Baru',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    content: Text(
+                                      "Anda bukan fasilitas kesehatan.",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  );
+                                },
+                              );
+                            }),
+                      }),
+            ],
+          ),
+        ),
         body: ListView(
           children: <Widget>[
             Container(
-              color: Colors.pink[900],
+              color: Color(0xFFF48FB1),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 30.0, top: 40.0, bottom: 5.0),
-                    child: Text(
-                      "Berikut adalah wilayah yang tersedia:",
-                      style: myTextTheme.headline6,
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 40.0),
+                      child: Text("Daftar Wilayah"),
                     ),
                   ),
                   Align(
-                    alignment: Alignment.bottomRight,
+                    alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 20.0, bottom: 15.0),
+                      padding: const EdgeInsets.only(bottom: 15.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.pink,
+                          minimumSize: const Size(150, 30),
+                          maximumSize: const Size(150, 30),
+                          primary: Colors.white,
                         ),
                         onPressed: () {
                           if (chosen != null) {
+                            print(chosen!.nama);
+                            print(chosen!.pk);
                             Navigator.pushNamed(
                               context,
                               ListRSPage.routeName,
@@ -78,14 +159,14 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text(
-                                      'Mohon pilih wilayah anda terlebih dahulu!')),
+                                  content: Text('Anda belum memilih daerah')),
                             );
                           }
                         },
                         child: const Text(
-                          "Pilih wilayah",
-                          style: TextStyle(color: darkPrimaryColor),
+                          "LIHAT LIST RS",
+                          style:
+                              TextStyle(color: darkPrimaryColor, fontSize: 10),
                         ),
                       ),
                     ),
@@ -108,7 +189,7 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
                       padding:
                           const EdgeInsets.only(left: 40, top: 30, bottom: 30),
                       child: Text(
-                        "Daftar Wilayah",
+                        "Silakan pilih wilayah:",
                         style: myTextTheme.headline6,
                       ),
                     ),
@@ -172,72 +253,6 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
                 ),
               ),
             ),
-            Scaffold(
-              floatingActionButton: FloatingActionButton(
-                  child: const Icon(Icons.call),
-                  tooltip: 'Telepon hotline utama Covid-19',
-                  onPressed: () => {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              Widget cancelButton = TextButton(
-                                child: const Text("Tidak"),
-                                onPressed: () {},
-                              );
-                              Widget launchButton = TextButton(
-                                child: const Text("Ya"),
-                                onPressed: () {},
-                                // onPressed: () => launch("tel://21213123123"),
-                              );
-                              return AlertDialog(
-                                title: const Text("Hotline Covid-19 (119)"),
-                                content: const Text(
-                                    "Apakah Anda ingin langsung tersambung ke hotline utama Covid-19?"),
-                                actions: [
-                                  cancelButton,
-                                  launchButton,
-                                ],
-                              );
-                            })
-                      }),
-            ),
-            Scaffold(
-              floatingActionButton: FloatingActionButton(
-                  child: const Icon(Icons.add),
-                  tooltip: 'Tambah Daerah Baru',
-                  onPressed: () => {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return FutureBuilder(
-                                future: futureUser,
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData &&
-                                      ((snapshot.data as User).roles.contains(
-                                              "fasilitas_kesehatan") ||
-                                          (snapshot.data as User)
-                                              .roles
-                                              .contains("admin"))) {
-                                    return const DaerahForm();
-                                  }
-                                  return const AlertDialog(
-                                    scrollable: true,
-                                    title: Text(
-                                      'Tambah RS Baru',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    content: Text(
-                                      "Anda bukan fasilitas kesehatan.",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  );
-                                },
-                              );
-                            }),
-                      }),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.startFloat,
-            ),
           ],
         ),
       ),
@@ -258,7 +273,10 @@ class _ListDaerahPageState extends State<ListDaerahPage> {
           children: <Widget>[
             Align(
               alignment: Alignment.center,
-              child: Text(daerah.nama, style: myTextTheme.button),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: Text(daerah.nama, style: myTextTheme.button),
+              ),
             ),
           ],
         ),

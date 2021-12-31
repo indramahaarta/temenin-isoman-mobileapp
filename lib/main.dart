@@ -18,7 +18,7 @@ class TemeninIsomanApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(EmergencyContactPage.routeName);
+    print(ListDaerahPage.routeName);
     return MaterialApp(
       title: 'Temenin Isoman',
       debugShowCheckedModeBanner: false,
@@ -63,6 +63,15 @@ class TemeninIsomanApp extends StatelessWidget {
         DeteksiMandiri.routeName: (context) => const DeteksiMandiri(),
 
         //Emergency Contact routes
+        ListDaerahPage.routeName: (context) => const ListDaerahPage(),
+        ListRSPage.routeName: (context) => ListRSPage(
+              daerah: ModalRoute.of(context)?.settings.arguments as Daerah,
+            ),
+        RSForm.routeName: (context) => RSForm(
+              daerah: ModalRoute.of(context)?.settings.arguments as Daerah,
+            ),
+        DaerahForm.routeName: (context) => const DaerahForm(),
+
         ObatsPage.routeName: (context) => const ObatsPage(),
       },
     );

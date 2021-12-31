@@ -71,7 +71,7 @@ Widget category(BuildContext context) {
               Icons.warning,
               const Color(0xfffa8c73),
               const Color(0xfffa9881),
-              EmergencyContactPage.routeName,
+              ListDaerahPage.routeName,
               context,
             ),
             _categoryCard(
