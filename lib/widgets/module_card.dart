@@ -5,6 +5,7 @@ import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:tips_and_tricks/main.dart';
 import 'package:bed_capacity/main.dart';
+import 'package:obat/obat.dart';
 
 Widget category(BuildContext context) {
   return Column(
@@ -86,6 +87,14 @@ Widget category(BuildContext context) {
               const Color(0xfffa8c73),
               const Color(0xfffa9881),
               TipsAndTricksListPage.routeName,
+              context,
+            ),
+            _categoryCard(
+              "Symptomp",
+              Icons.medical_services_outlined,
+              const Color(0xfffa8c73),
+              const Color(0xfffa9881),
+              ObatsPage.routeName,
               context,
             ),
           ],

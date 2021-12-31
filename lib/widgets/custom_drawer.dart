@@ -9,6 +9,7 @@ import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/main.dart';
 import 'package:bed_capacity/main.dart';
+import 'package:obat/obat.dart';
 
 Widget customDrawer(BuildContext context, Future<User?> futureUser) {
   void logout() async {
@@ -70,7 +71,6 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
         Container(
           height: 20,
         ),
-
         _drawerTile(
           context,
           "Home Page",
@@ -112,6 +112,12 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
           "Tips And Tricks",
           Icons.lightbulb_outline,
           TipsAndTricksListPage.routeName,
+        ),
+        _drawerTile(
+          context,
+          "Symptomp",
+          Icons.medical_services_outlined,
+          ObatsPage.routeName,
         ),
         Container(
           height: 20,
