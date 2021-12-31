@@ -6,6 +6,7 @@ import 'package:temenin_isoman_mobileapp/utils/user.dart';
 import 'package:temenin_isoman_mobileapp/common/styles.dart';
 import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -21,6 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
   String _username = "";
   String _password = "";
   bool _showPassword = true;
+
+  void _launchURL() async {
+    if (!await launch('https://temenin-isoman.herokuapp.com/signup/')) throw 'Could not launch sign up';
+  }
 
   void login() async {
     if (_username == "" || _password == "") {
@@ -179,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: _launchURL,
                       child: const Text(
                         'Register Now',
                         style: TextStyle(color: Colors.blue),
