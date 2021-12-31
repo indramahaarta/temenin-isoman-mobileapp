@@ -6,6 +6,7 @@ import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/common/styles.dart';
 import 'package:tips_and_tricks/main.dart';
 import 'package:bed_capacity/main.dart';
+import 'package:obat/obat.dart';
 
 void main() {
   runApp(const TemeninIsomanApp());
@@ -48,15 +49,17 @@ class TemeninIsomanApp extends StatelessWidget {
         // bed capacity routes
         AreaList.routeName: (context) => const AreaList(),
         HospitalList.routeName: (context) => HospitalList(
-          area: ModalRoute.of(context)?.settings.arguments as Area,
-        ),
+              area: ModalRoute.of(context)?.settings.arguments as Area,
+            ),
         BedRequestForm.routeName: (context) => BedRequestForm(
-          hospital: ModalRoute.of(context)?.settings.arguments as Hospital,
-        ),
-        BedRequestConfirmationPage.routeName: (context) => const BedRequestConfirmationPage(),
+              hospital: ModalRoute.of(context)?.settings.arguments as Hospital,
+            ),
+        BedRequestConfirmationPage.routeName: (context) =>
+            const BedRequestConfirmationPage(),
 
         //Deteksi Mandiri routes
         DeteksiMandiri.routeName: (context) => const DeteksiMandiri(),
+        ObatsPage.routeName: (context) => const ObatsPage(),
       },
     );
   }
