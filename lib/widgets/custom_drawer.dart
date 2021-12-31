@@ -9,6 +9,7 @@ import 'package:temenin_isoman_mobileapp/screens/home_screen.dart';
 import 'package:temenin_isoman_mobileapp/screens/login_screen.dart';
 import 'package:tips_and_tricks/main.dart';
 import 'package:bed_capacity/main.dart';
+import 'package:emergency_contact/main.dart';
 
 Widget customDrawer(BuildContext context, Future<User?> futureUser) {
   void logout() async {
@@ -70,7 +71,6 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
         Container(
           height: 20,
         ),
-
         _drawerTile(
           context,
           "Home Page",
@@ -99,7 +99,7 @@ Widget customDrawer(BuildContext context, Future<User?> futureUser) {
           context,
           "Emergency Contact",
           Icons.warning,
-          HomeScreen.routeName,
+          EmergencyContactPage.routeName,
         ),
         _drawerTile(
           context,
