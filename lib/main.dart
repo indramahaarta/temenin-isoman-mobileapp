@@ -7,6 +7,7 @@ import 'package:tips_and_tricks/common/styles.dart';
 import 'package:tips_and_tricks/main.dart';
 import 'package:bed_capacity/main.dart';
 import 'package:emergency_contact/main.dart';
+import 'package:obat/obat.dart';
 
 void main() {
   runApp(const TemeninIsomanApp());
@@ -62,6 +63,7 @@ class TemeninIsomanApp extends StatelessWidget {
         DeteksiMandiri.routeName: (context) => const DeteksiMandiri(),
 
         //Emergency Contact routes
+        ObatsPage.routeName: (context) => const ObatsPage(),
       },
     );
   }
