@@ -1,17 +1,14 @@
 import 'package:bed_capacity/main.dart';
 import 'package:flutter/material.dart';
-import 'package:temenin_isoman_mobileapp/widgets/custom_drawer.dart';
 import 'package:bed_capacity/models/hospital.dart';
-import 'package:bed_capacity/models/area.dart';
 import 'package:bed_capacity/common/styles.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class BedRequestForm extends StatefulWidget {
   static const String routeName = '/bed_request_form';
-  Hospital hospital;
+  final Hospital hospital;
 
-  BedRequestForm({Key? key, required this.hospital}) : super(key: key);
+  const BedRequestForm({Key? key, required this.hospital}) : super(key: key);
 
   @override
   _BedRequestFormState createState() => _BedRequestFormState();
@@ -70,12 +67,10 @@ class _BedRequestFormState extends State<BedRequestForm> {
                         style: myTextTheme.headline6,
                       ),
                     ),
-                    Container(
-                      child: Form(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        key: formKey,
-                        child: buildForm(),
-                      ),
+                    Form(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      key: formKey,
+                      child: buildForm(),
                     ),
                   ],
                 ),
@@ -98,12 +93,8 @@ class _BedRequestFormState extends State<BedRequestForm> {
   }
 
   Widget buildForm() {
-    InputDecoration decoration = InputDecoration(
-
-    );
-
     return Padding(
-      padding: EdgeInsets.only(right:24.0, left:24.0),
+      padding: const EdgeInsets.only(right:24.0, left:24.0),
       child: Column(
         children: <Widget> [
           TextFormField(
@@ -115,7 +106,7 @@ class _BedRequestFormState extends State<BedRequestForm> {
               hintText: "Silakan Masukkan Nama Anda",
             ),
             validator: (value) {
-              return value!.length == 0 ? "Mohon isi nama anda" : null;
+              return value!.isEmpty ? "Mohon isi nama anda" : null;
             },
           ),
           Column(
@@ -167,7 +158,7 @@ class _BedRequestFormState extends State<BedRequestForm> {
               hintText: "Silakan Masukkan Alamat Tinggal Anda",
             ),
             validator: (value) {
-              return value!.length == 0 ? "Mohon isi alamat anda" : null;
+              return value!.isEmpty ? "Mohon isi alamat anda" : null;
             },
           ),
           TextFormField(
@@ -179,7 +170,7 @@ class _BedRequestFormState extends State<BedRequestForm> {
               hintText: "Silakan Masukkan Nomor Telepon Anda",
             ),
             validator: (value) {
-              return value!.length == 0 ? "Mohon isi nomor telpon anda" : null;
+              return value!.isEmpty ? "Mohon isi nomor telpon anda" : null;
             }
           ),
           ElevatedButton(

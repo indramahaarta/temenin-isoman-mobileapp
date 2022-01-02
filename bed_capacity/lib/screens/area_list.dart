@@ -23,9 +23,8 @@ class AreaList extends StatefulWidget {
 class _AreaListState extends State<AreaList> {
   late Future<List<Area>> _areas;
   late Future<User?> futureUser;
-  List<Widget> _areaListWidget = [];
   String debugger = 'test';
-  Map<int, Area> areaObjects = Map<int, Area>();
+  Map<int, Area> areaObjects = <int, Area>{};
   Area? choice;
 
   // Wilayah data fetcher
@@ -161,8 +160,16 @@ class _AreaListState extends State<AreaList> {
                                 child: Text("Terjadi Error"),
                               ),
                             );
+
+                            widgets.add(button);
                           }
-                          return Align(
+
+                          return Column(
+                            children: widgets,
+                          );
+                        }
+                        else if (snapshot.hasError) {
+                          return const Align(
                             alignment: Alignment.center,
                             child: Column(
                               children: const [
@@ -178,8 +185,19 @@ class _AreaListState extends State<AreaList> {
                               ],
                             ),
                           );
-                        },
-                      ),
+                        }
+                        return Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.only(top:100.0),
+                                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(darkPrimaryColor))),
+                              Padding(padding: EdgeInsets.only(top: 20.0) ,child: Text('Mengambil Data Wilayah')),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
