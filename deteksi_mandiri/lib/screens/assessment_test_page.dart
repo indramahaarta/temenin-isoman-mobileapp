@@ -226,7 +226,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
     return RadioListTile<String>(
       value: data,
       groupValue: user_answer[index],
-      visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
+      //visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
       onChanged: (value) {
         setState(() {
           user_answer[index] = (value == null) ? "" : value;
